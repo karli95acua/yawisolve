@@ -1,0 +1,107 @@
+<section class="downloads">
+    <h2>Recomendación de Tutoriales</h2>
+    <div id="videos-container" class="downloads-grid">
+        <div class="download-item">
+            <div class="details">
+                <h3>Relación Contratista - Trabajador</h3>
+                <p>Cómo relacionar un trabajador a un Contratista de forma correcta: carga masiva</p>
+            </div>
+        </div>
+        <div class="download-item">
+            <div class="details">
+                <h3>Configuración de Trato: día y productividad</h3>
+                <p>Cómo configurar el trato por fundo para cada actividad</p>
+            </div>
+        </div>
+        <div class="download-item">
+            <div class="details">
+                <h3>Planillas de Campo</h3>
+                <p>Principales funcionalidades de Planillas de campo</p>
+            </div>
+        </div>
+        <div class="download-item">
+            <div class="details">
+                <h3>Crear Usuario móvil: supervisor tareo y cosecha</h3>
+                <p>Cómo crear un supervisor y darle acceso móvil a tareo y cosecha</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    h2 {
+        color: black;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+    }
+
+    /* Contenedor principal */
+    .downloads {
+        padding: 0 3rem;
+        max-width: 1200px;
+        margin: 1rem auto;
+    }
+
+    /* Ajusta la cuadrícula */
+    .downloads-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+    }
+
+    /* Estilos de cada cuadrado */
+    .download-item {
+        background-color: #fff;
+        height: 300px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .download-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .download-item .details {
+        position: absolute;
+        bottom: 0;
+        background: #204f72; 
+        color: white;
+        width: 100%;
+        padding: 1rem;
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+
+    .download-item .details h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .download-item .details p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+        .downloads {
+            padding: 0 1.5rem;
+        }
+
+        .downloads-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .download-item {
+            height: 180px;
+        }
+    }
+</style>
+
