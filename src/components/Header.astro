@@ -1,15 +1,19 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import { Image } from 'astro:assets';
+import myLogo from '../assets/SOLVE.png';
 ---
 
 <header>
 	<nav>
+		<div class="logo-yawisolve">
+			<Image src={myLogo} alt="Logo Yawi Solve" class="logo" />
+		</div>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/">Tutoriales</HeaderLink>
+			<HeaderLink href="/about">Sobre nosotros</HeaderLink>
 		</div>
 		<div class="social-links">
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
@@ -82,4 +86,13 @@ import { SITE_TITLE } from '../consts';
 			display: none;
 		}
 	}
+	.logo-yawisolve {
+display: flex;
+align-items: center;
+	}
+
+.logo {
+  width: 120px; /* Ajusta el tamaño según sea necesario */
+  height: auto; /* Mantén la proporción del logo */
+}
 </style>
