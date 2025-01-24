@@ -1,0 +1,47 @@
+---
+import HeaderModule from '../components/HeaderModule.astro';
+import VideoCard from '../components/VideoCard.astro';
+
+// Para esto debemos implementar un JSON
+const videos = [
+    {
+        title: "Cómo crear una evaluación de calidad",
+        description: "Cómo adaptar una cartilla de evaluación.",
+        category: "Calidad",
+        duration: "5 min",
+    },
+    {
+        title: "Umbrales y casos de evaluación",
+        description: "Cómo configurar las fórmulas de tus evaluaciones",
+        category: "Calidad",
+        duration: "4 min",
+    },
+    {
+        title: "Reportes de evaluación y cómo editarlos",
+        description: "Evaluaciones y sus resultados",
+        category: "Calidad",
+        duration: "6 min",
+    },
+    ];
+---
+<html lang="es">
+<meta charset="UTF-8" />
+    <body>
+        <HeaderModule title="Calidad" />
+        <main>
+        <h1>Tutoriales de Calidad</h1>
+        <VideoCard videos={videos} />
+        </main>
+    </body>
+</html>
+
+<style>
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        color: #204f72;
+        font-size: 2rem;
+    }
+</style>

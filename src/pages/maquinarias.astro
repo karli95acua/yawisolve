@@ -1,0 +1,47 @@
+---
+import HeaderModule from '../components/HeaderModule.astro';
+import VideoCard from '../components/VideoCard.astro';
+
+// Para esto debemos implementar un JSON
+const videos = [
+    {
+        title: "Cómo configurar tus maquinarias",
+        description: "Flujo de creación de maquinarias.",
+        category: "Maquinarias",
+        duration: "6 min",
+    },
+    {
+        title: "Maquinarias y sus tarifas según día y hora",
+        description: "Cómo configurar las tarifas",
+        category: "Maquinarias",
+        duration: "4 min",
+    },
+    {
+        title: "Cómo crear una Solicitud diaria desde la web",
+        description: "Flujo para crear una orden de trabajo de maquinaria",
+        category: "Maquinarias",
+        duration: "6 min",
+    },
+    ];
+---
+<html lang="es">
+<meta charset="UTF-8" />
+    <body>
+        <HeaderModule title="Maquinarias" />
+        <main>
+        <h1>Tutoriales de Maquinarias</h1>
+        <VideoCard videos={videos} />
+        </main>
+    </body>
+</html>
+
+<style>
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        color: #204f72;
+        font-size: 2rem;
+    }
+</style>

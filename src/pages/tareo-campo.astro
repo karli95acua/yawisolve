@@ -1,0 +1,47 @@
+---
+import HeaderModule from '../components/HeaderModule.astro';
+import VideoCard from '../components/VideoCard.astro';
+
+// Para esto debemos implementar un JSON
+const videos = [
+    {
+        title: "Cómo configurar un grupo de labor",
+        description: "Para qué sirven los grupos de labores y cómo hacerlos.",
+        category: "Tareo Campo",
+        duration: "5 min",
+    },
+    {
+        title: "Homologación de trabajadores",
+        description: "Guía para la homologación de códigos genéricos.",
+        category: "Tareo Campo",
+        duration: "8 min",
+    },
+    {
+        title: "Planillas de Campo y todas sus funcionalidades",
+        description: "Guía para editar, corregir y validar planillas.",
+        category: "Tareo Campo",
+        duration: "10 min",
+    },
+    ];
+---
+<html lang="es">
+<meta charset="UTF-8" />
+    <body>
+        <HeaderModule title="Tareo Campo" />
+        <main>
+        <h1>Tutoriales de Tareo Campo</h1>
+        <VideoCard videos={videos} />
+        </main>
+    </body>
+</html>
+
+<style>
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        color: #204f72;
+        font-size: 2rem;
+    }
+</style>

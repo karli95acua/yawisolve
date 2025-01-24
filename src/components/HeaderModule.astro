@@ -1,0 +1,70 @@
+---
+import Image from "astro/components/Image.astro";
+import myLogo from '../assets/SOLVE.png';
+import '../styles/global.css';
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+<header>
+    <meta charset="UTF-8" />
+    <nav>
+        <div class="logo-yawisolve">
+            <a href="/">
+                <Image src={myLogo} alt="Logo Yawi Solve" class="logo" />
+            </a>
+        </div>
+        <div class="title-container">
+            <div class="title">{title}</div>
+        </div>
+        <div class="internal-links">
+            <!-- Opcional, para futuros enlaces -->
+        </div>
+    </nav>
+</header>
+
+<style>
+    header {
+        margin: 0;
+        padding: 0 1em;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Distribuye el logo, título y enlaces */
+    }
+    .logo-yawisolve {
+        display: flex;
+        align-items: center;
+    }
+    .logo {
+        width: 12rem;
+        height: auto;
+    }
+    .title-container {
+        display: flex;
+        justify-content: center; /* Centra horizontalmente */
+        align-items: center; /* Centra verticalmente */
+    }
+    .title {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #204f72;
+        text-align: center;
+        margin-right: 12rem;
+    }
+    .internal-links {
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+
+
+
+

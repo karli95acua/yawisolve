@@ -1,0 +1,47 @@
+---
+import HeaderModule from '../components/HeaderModule.astro';
+import VideoCard from '../components/VideoCard.astro';
+
+// Para esto debemos implementar un JSON
+const videos = [
+    {
+        title: "Cómo configurar un nuevo usuario",
+        description: "Aprende a configurar permisos de usuario en el sistema.",
+        category: "Configuración",
+        duration: "5 min",
+    },
+    {
+        title: "Carga masiva de datos",
+        description: "Guía para cargar datos masivamente en pocos pasos.",
+        category: "Configuración",
+        duration: "8 min",
+    },
+    {
+        title: "Configuración de Estructura Agrícola",
+        description: "Guía para configurar tus fundos, módulos y lotes.",
+        category: "Configuración",
+        duration: "4 min",
+    },
+    ];
+---
+<html lang="es">
+<meta charset="UTF-8" />
+    <body>
+        <HeaderModule title="Configuración" />
+        <main>
+        <h1>Tutoriales de Configuración</h1>
+        <VideoCard videos={videos} />
+        </main>
+    </body>
+</html>
+
+<style>
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        color: #204f72;
+        font-size: 2rem;
+    }
+</style>

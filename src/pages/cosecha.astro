@@ -1,0 +1,47 @@
+---
+import HeaderModule from '../components/HeaderModule.astro';
+import VideoCard from '../components/VideoCard.astro';
+
+// Para esto debemos implementar un JSON
+const videos = [
+    {
+        title: "Cómo configurar un grupo de cosecha",
+        description: "Para qué sirven los grupos de cosecha y cómo hacerlos.",
+        category: "Cosecha",
+        duration: "5 min",
+    },
+    {
+        title: "Formatos de cosecha",
+        description: "Guía para la creación de envases de cosecha y como cargarlos en los supervisores",
+        category: "Cosecha",
+        duration: "4 min",
+    },
+    {
+        title: "Configuración de Tipos de Cosecha",
+        description: "Cómo configurar cosecha según pauta de cosecha",
+        category: "Cosecha",
+        duration: "6 min",
+    },
+    ];
+---
+<html lang="es">
+<meta charset="UTF-8" />
+    <body>
+        <HeaderModule title="Cosecha" />
+        <main>
+        <h1>Tutoriales de Cosecha</h1>
+        <VideoCard videos={videos} />
+        </main>
+    </body>
+</html>
+
+<style>
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        color: #204f72;
+        font-size: 2rem;
+    }
+</style>
