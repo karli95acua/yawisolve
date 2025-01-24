@@ -1,11 +1,58 @@
 ---
 import HeaderModule from '../components/HeaderModule.astro';
+import VideoCard from '../components/VideoCard.astro';
+import SwitchVideo from '../components/SwitchVideo.astro';
+import videosData from '../data/videos.json';
+import '../styles/global.css';
+
+interface Video {
+    title: string;
+    description: string;
+    category: string;
+    platform: string;
+    duration: string;
+    url: string;
+}
+
+// Estado inicial para la plataforma seleccionada
+let selectedPlatform: string = "WEB";
+
+// Función para manejar el cambio de plataforma
+function handlePlatformChange(platform: string): void {
+  selectedPlatform = platform; // Actualizar la plataforma seleccionada
+  updateFilteredVideos(); // Actualizar los videos filtrados
+}
+
+// Inicializar la lista de videos filtrados con el tipo correcto
+let filteredVideos: Video[] = [];
+
+// Función para filtrar los videos según la plataforma seleccionada y la categoría
+function updateFilteredVideos(): void {
+    filteredVideos = videosData.videos.filter(
+        (video: Video) => video.category === "Sanidad" && video.platform === selectedPlatform
+    );
+}
+
+// Llamar la función para inicializar los videos filtrados
+updateFilteredVideos();
 ---
 <html lang="es">
+    <meta charset="UTF-8" />
     <body>
         <HeaderModule title="Sanidad" />
         <main>
         <h1>Tutoriales de Sanidad</h1>
+        <!-- Componente SwitchVideo para cambiar entre WEB y MOVIL -->
+        <SwitchVideo
+            selectedPlatform={selectedPlatform}
+            onPlatformChange={handlePlatformChange}
+        />
+        <!-- Mostrar videos o mensaje si no hay disponibles -->
+        {filteredVideos.length > 0 ? (
+            <VideoCard videos={filteredVideos} />
+        ) : (
+            <p class="no-videos">Pronto nuevos videos</p>
+        )}
         </main>
     </body>
 </html>
@@ -14,6 +61,16 @@ import HeaderModule from '../components/HeaderModule.astro';
     h1 {
         display: flex;
         justify-content: center;
-		align-items: center;
+        align-items: center;
+        margin-top: 2rem;
+        color: #204f72;
+        font-size: 2rem;
+    }
+
+    .no-videos {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        color: #888;
     }
 </style>

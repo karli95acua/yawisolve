@@ -1,0 +1,75 @@
+---
+interface Props {
+  selectedPlatform: string; // Plataforma actual seleccionada (WEB o MOVIL)
+  onPlatformChange: (platform: string) => void; // Callback para manejar el cambio
+}
+
+const { selectedPlatform, onPlatformChange } = Astro.props;
+---
+<div class="platform-switcher">
+    <button
+        class={`platform-button ${selectedPlatform === "WEB" ? "active" : ""}`}
+        data-platform="WEB"
+    >
+        WEB
+    </button>
+    <button
+        class={`platform-button ${selectedPlatform === "MOVIL" ? "active" : ""}`}
+        data-platform="MOVIL"
+    >
+        MOVIL
+    </button>
+</div>
+
+<script is:inline>
+    // Seleccionar todos los botones
+    const buttons = document.querySelectorAll('.platform-button');
+
+    // Agregar evento a cada botón
+    buttons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            const platform = button.getAttribute('data-platform');
+            if (platform) {
+                // Llamar al callback proporcionado en las props
+                Astro.props.onPlatformChange(platform);
+            }
+        });
+    });
+</script>
+
+<style>
+    .platform-switcher {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin: 1rem 0;
+    }
+
+    .platform-button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background-color: white;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .platform-button.active {
+        background-color: #204f72;
+        color: white;
+    }
+
+    .platform-button:hover {
+        background-color: #eee;
+    }
+</style>
+
+
+
+
+
+
+
+
+

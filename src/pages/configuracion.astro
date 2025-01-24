@@ -1,36 +1,58 @@
 ---
 import HeaderModule from '../components/HeaderModule.astro';
 import VideoCard from '../components/VideoCard.astro';
+import SwitchVideo from '../components/SwitchVideo.astro';
+import videosData from '../data/videos.json';
+import '../styles/global.css';
 
-// Para esto debemos implementar un JSON
-const videos = [
-    {
-        title: "Cómo configurar un nuevo usuario",
-        description: "Aprende a configurar permisos de usuario en el sistema.",
-        category: "Configuración",
-        duration: "5 min",
-    },
-    {
-        title: "Carga masiva de datos",
-        description: "Guía para cargar datos masivamente en pocos pasos.",
-        category: "Configuración",
-        duration: "8 min",
-    },
-    {
-        title: "Configuración de Estructura Agrícola",
-        description: "Guía para configurar tus fundos, módulos y lotes.",
-        category: "Configuración",
-        duration: "4 min",
-    },
-    ];
+interface Video {
+    title: string;
+    description: string;
+    category: string;
+    platform: string;
+    duration: string;
+    url: string;
+}
+
+// Estado inicial para la plataforma seleccionada
+let selectedPlatform: string = "WEB";
+
+// Inicializar la lista de videos filtrados
+let filteredVideos: Video[] = [];
+
+// Función para manejar el cambio de plataforma
+function handlePlatformChange(platform: string): void {
+    selectedPlatform = platform; // Actualizar la plataforma seleccionada
+    updateFilteredVideos(); // Actualizar los videos filtrados
+}
+
+// Función para filtrar los videos según la plataforma seleccionada y la categoría
+function updateFilteredVideos(): void {
+    filteredVideos = videosData.videos.filter(
+        (video: Video) => video.category === "Configuración" && video.platform === selectedPlatform
+    );
+}
+
+// Llamar la función para inicializar los videos filtrados
+updateFilteredVideos();
 ---
 <html lang="es">
-<meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <body>
         <HeaderModule title="Configuración" />
         <main>
         <h1>Tutoriales de Configuración</h1>
-        <VideoCard videos={videos} />
+        <!-- Componente SwitchVideo para cambiar entre WEB y MOVIL -->
+        <SwitchVideo
+            selectedPlatform={selectedPlatform}
+            onPlatformChange={handlePlatformChange}
+        />
+        <!-- Mostrar videos o mensaje si no hay disponibles -->
+        {filteredVideos.length > 0 ? (
+            <VideoCard videos={filteredVideos} />
+        ) : (
+            <p class="no-videos">Pronto nuevos videos</p>
+        )}
         </main>
     </body>
 </html>
@@ -44,4 +66,17 @@ const videos = [
         color: #204f72;
         font-size: 2rem;
     }
+
+    .no-videos {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        color: #888;
+    }
 </style>
+
+
+
+
+
+

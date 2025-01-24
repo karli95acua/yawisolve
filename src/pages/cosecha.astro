@@ -1,36 +1,58 @@
 ---
 import HeaderModule from '../components/HeaderModule.astro';
 import VideoCard from '../components/VideoCard.astro';
+import SwitchVideo from '../components/SwitchVideo.astro';
+import videosData from '../data/videos.json';
+import '../styles/global.css';
 
-// Para esto debemos implementar un JSON
-const videos = [
-    {
-        title: "Cómo configurar un grupo de cosecha",
-        description: "Para qué sirven los grupos de cosecha y cómo hacerlos.",
-        category: "Cosecha",
-        duration: "5 min",
-    },
-    {
-        title: "Formatos de cosecha",
-        description: "Guía para la creación de envases de cosecha y como cargarlos en los supervisores",
-        category: "Cosecha",
-        duration: "4 min",
-    },
-    {
-        title: "Configuración de Tipos de Cosecha",
-        description: "Cómo configurar cosecha según pauta de cosecha",
-        category: "Cosecha",
-        duration: "6 min",
-    },
-    ];
+interface Video {
+    title: string;
+    description: string;
+    category: string;
+    platform: string;
+    duration: string;
+    url: string;
+}
+
+// Estado inicial para la plataforma seleccionada
+let selectedPlatform: string = "WEB";
+
+// Función para manejar el cambio de plataforma
+function handlePlatformChange(platform: string): void {
+  selectedPlatform = platform; // Actualizar la plataforma seleccionada
+  updateFilteredVideos(); // Actualizar los videos filtrados
+}
+
+// Inicializar la lista de videos filtrados con el tipo correcto
+let filteredVideos: Video[] = [];
+
+// Función para filtrar los videos según la plataforma seleccionada y la categoría
+function updateFilteredVideos(): void {
+    filteredVideos = videosData.videos.filter(
+        (video: Video) => video.category === "Cosecha" && video.platform === selectedPlatform
+    );
+}
+
+// Llamar la función para inicializar los videos filtrados
+updateFilteredVideos();
 ---
 <html lang="es">
-<meta charset="UTF-8" />
+    <meta charset="UTF-8" />
     <body>
         <HeaderModule title="Cosecha" />
         <main>
         <h1>Tutoriales de Cosecha</h1>
-        <VideoCard videos={videos} />
+        <!-- Componente SwitchVideo para cambiar entre WEB y MOVIL -->
+        <SwitchVideo
+            selectedPlatform={selectedPlatform}
+            onPlatformChange={handlePlatformChange}
+        />
+        <!-- Mostrar videos o mensaje si no hay disponibles -->
+        {filteredVideos.length > 0 ? (
+            <VideoCard videos={filteredVideos} />
+        ) : (
+            <p class="no-videos">Pronto nuevos videos</p>
+        )}
         </main>
     </body>
 </html>
@@ -44,4 +66,12 @@ const videos = [
         color: #204f72;
         font-size: 2rem;
     }
+
+    .no-videos {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        color: #888;
+    }
 </style>
+
