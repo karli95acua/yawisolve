@@ -6,6 +6,7 @@ import videosData from '../data/videos.json';
 import '../styles/global.css';
 
 interface Video {
+    id: string;
     title: string;
     description: string;
     category: string;
@@ -14,26 +15,25 @@ interface Video {
     url: string;
 }
 
-// Estado inicial para la plataforma seleccionada
+
 let selectedPlatform: string = "WEB";
 
-// Función para manejar el cambio de plataforma
-function handlePlatformChange(platform: string): void {
-  selectedPlatform = platform; // Actualizar la plataforma seleccionada
-  updateFilteredVideos(); // Actualizar los videos filtrados
-}
 
-// Inicializar la lista de videos filtrados con el tipo correcto
 let filteredVideos: Video[] = [];
 
-// Función para filtrar los videos según la plataforma seleccionada y la categoría
+function handlePlatformChange(platform: string): void {
+    selectedPlatform = platform;
+    updateFilteredVideos();
+}
+
+
 function updateFilteredVideos(): void {
     filteredVideos = videosData.videos.filter(
         (video: Video) => video.category === "Sanidad" && video.platform === selectedPlatform
     );
 }
 
-// Llamar la función para inicializar los videos filtrados
+
 updateFilteredVideos();
 ---
 <html lang="es">
@@ -42,12 +42,12 @@ updateFilteredVideos();
         <HeaderModule title="Sanidad" />
         <main>
         <h1>Tutoriales de Sanidad</h1>
-        <!-- Componente SwitchVideo para cambiar entre WEB y MOVIL -->
+
         <SwitchVideo
             selectedPlatform={selectedPlatform}
             onPlatformChange={handlePlatformChange}
         />
-        <!-- Mostrar videos o mensaje si no hay disponibles -->
+
         {filteredVideos.length > 0 ? (
             <VideoCard videos={filteredVideos} />
         ) : (
@@ -74,3 +74,4 @@ updateFilteredVideos();
         color: #888;
     }
 </style>
+

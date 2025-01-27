@@ -1,69 +1,104 @@
 ---
 interface Props {
-  selectedPlatform: string; // Plataforma actual seleccionada (WEB o MOVIL)
-  onPlatformChange: (platform: string) => void; // Callback para manejar el cambio
+  selectedPlatform: string; // Plataforma seleccionada
 }
 
-const { selectedPlatform, onPlatformChange } = Astro.props;
+const { selectedPlatform } = Astro.props;
 ---
+
 <div class="platform-switcher">
-    <button
-        class={`platform-button ${selectedPlatform === "WEB" ? "active" : ""}`}
-        data-platform="WEB"
-    >
-        WEB
-    </button>
-    <button
-        class={`platform-button ${selectedPlatform === "MOVIL" ? "active" : ""}`}
-        data-platform="MOVIL"
-    >
-        MOVIL
-    </button>
+  <label for="platform-select" class="label">Selecciona Plataforma</label>
+  <select id="platform-select" class="select select-info w-full max-w-xs">
+    <option value="WEB" selected={selectedPlatform === "WEB"}>WEB</option>
+    <option value="MOVIL" selected={selectedPlatform === "MOVIL"}>MOVIL</option>
+  </select>
+  <button id="apply-button" class="apply-button">Aplicar Filtro</button>
 </div>
 
 <script is:inline>
-    // Seleccionar todos los botones
-    const buttons = document.querySelectorAll('.platform-button');
+  document.addEventListener('DOMContentLoaded', () => {
+    const selectElement = document.getElementById('platform-select');
+    const buttonElement = document.getElementById('apply-button');
 
-    // Agregar evento a cada botón
-    buttons.forEach((button) => {
-        button.addEventListener('click', (event) => {
-            const platform = button.getAttribute('data-platform');
-            if (platform) {
-                // Llamar al callback proporcionado en las props
-                Astro.props.onPlatformChange(platform);
-            }
+    if (selectElement && buttonElement) {
+      let selectedValue = selectElement.value;
+
+      // Escuchar cambios en el <select>
+      selectElement.addEventListener('change', (event) => {
+        const target = event.target;
+        if (target instanceof HTMLSelectElement) {
+          selectedValue = target.value;
+          console.log(`Plataforma seleccionada: ${selectedValue}`);
+        }
+      });
+
+      // Escuchar clic en el botón
+      buttonElement.addEventListener('click', () => {
+        console.log(`Aplicando filtro para la plataforma: ${selectedValue}`);
+        const event = new CustomEvent('platformChange', {
+          detail: { platform: selectedValue },
         });
-    });
+        document.dispatchEvent(event);
+      });
+    } else {
+      console.error('No se encontraron los elementos select o botón en el DOM.');
+    }
+  });
 </script>
 
 <style>
-    .platform-switcher {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-        margin: 1rem 0;
-    }
+  .platform-switcher {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
 
-    .platform-button {
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        background-color: white;
-        cursor: pointer;
-        transition: background-color 0.3s, color 0.3s;
-    }
+  .label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #204f72;
+  }
 
-    .platform-button.active {
-        background-color: #204f72;
-        color: white;
-    }
+  .select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
 
-    .platform-button:hover {
-        background-color: #eee;
-    }
+  .apply-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: white;
+    background-color: #204f72;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .apply-button:hover {
+    background-color: #163e57;
+  }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

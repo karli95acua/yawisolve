@@ -3,78 +3,125 @@ import HeaderModule from '../components/HeaderModule.astro';
 import VideoCard from '../components/VideoCard.astro';
 import SwitchVideo from '../components/SwitchVideo.astro';
 import videosData from '../data/videos.json';
-import '../styles/global.css';
 
 interface Video {
-    id: string;
-    title: string;
-    description: string;
-    category: string;
-    platform: string;
-    duration: string;
-    url: string;
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  platform: string;
+  duration: string;
+  url: string;
 }
 
-// Estado inicial para la plataforma seleccionada
 let selectedPlatform: string = "WEB";
-
-// Inicializar la lista de videos filtrados
 let filteredVideos: Video[] = [];
 
-// Función para manejar el cambio de plataforma
-function handlePlatformChange(platform: string): void {
-    selectedPlatform = platform; // Actualizar la plataforma seleccionada
-    updateFilteredVideos(); // Actualizar los videos filtrados
+// Filtrar videos según la plataforma seleccionada
+function updateFilteredVideos(platform: string): void {
+  filteredVideos = videosData.videos.filter(
+    (video: Video) => video.category === "Configuración" && video.platform === platform
+  );
+  console.log(`Videos filtrados para plataforma ${platform}:`, filteredVideos);
 }
 
-// Función para filtrar los videos según la plataforma seleccionada y la categoría
-function updateFilteredVideos(): void {
-    filteredVideos = videosData.videos.filter(
-        (video: Video) => video.category === "Configuración" && video.platform === selectedPlatform
-    );
-}
-
-// Llamar la función para inicializar los videos filtrados
-updateFilteredVideos();
+// Inicializar los videos filtrados
+updateFilteredVideos(selectedPlatform);
 ---
+
 <html lang="es">
+  <head>
     <meta charset="UTF-8" />
-    <body>
-        <HeaderModule title="Configuración" />
-        <main>
-        <h1>Tutoriales de Configuración</h1>
-        <!-- Componente SwitchVideo para cambiar entre WEB y MOVIL -->
-        <SwitchVideo
-            selectedPlatform={selectedPlatform}
-            onPlatformChange={handlePlatformChange}
-        />
-        <!-- Mostrar videos o mensaje si no hay disponibles -->
+    <title>Configuración</title>
+  </head>
+  <body>
+    <HeaderModule title="Configuración" />
+    <main>
+      <h1>Tutoriales de Configuración</h1>
+
+      <SwitchVideo selectedPlatform={selectedPlatform} />
+
+      <div id="video-container">
         {filteredVideos.length > 0 ? (
+          <div class="video-card-list">
             <VideoCard videos={filteredVideos} />
+          </div>
         ) : (
-            <p class="no-videos">Pronto nuevos videos</p>
+          <p class="no-videos">Pronto nuevos videos</p>
         )}
-        </main>
-    </body>
+      </div>
+    </main>
+
+    <script is:inline>
+      document.addEventListener('platformChange', (event) => {
+        const customEvent = event.detail;
+        if (customEvent && customEvent.platform) {
+          selectedPlatform = customEvent.platform;
+          updateFilteredVideos(selectedPlatform);
+
+          const container = document.getElementById('video-container');
+          if (container) {
+            container.innerHTML = filteredVideos.length > 0
+              ? `<div class="video-card-list">
+                  ${filteredVideos
+                    .map(
+                      (video) => `
+                    <div class="video-card">
+                      <div class="video-thumbnail">
+                        <img src="${video.url || 'https://via.placeholder.com/300x180'}" alt="${video.title}">
+                      </div>
+                      <div class="video-info">
+                        <h3>${video.title}</h3>
+                        <p>${video.description}</p>
+                        <p class="video-meta">
+                          <span class="category">${video.category}</span> • <span class="duration">${video.duration}</span>
+                        </p>
+                      </div>
+                    </div>`
+                    )
+                    .join('')}
+                </div>`
+              : '<p class="no-videos">Pronto nuevos videos</p>';
+          }
+        }
+      });
+    </script>
+  </body>
 </html>
 
 <style>
-    h1 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2rem;
-        color: #204f72;
-        font-size: 2rem;
-    }
+  h1 {
+    text-align: center;
+    margin-top: 2rem;
+    color: #204f72;
+    font-size: 2rem;
+  }
 
-    .no-videos {
-        text-align: center;
-        margin-top: 2rem;
-        font-size: 1.5rem;
-        color: #888;
-    }
+  .video-card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem auto;
+    padding: 1rem;
+    max-width: 1200px;
+  }
+
+  .no-videos {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: #888;
+  }
 </style>
+
+
+
+
+
+
+
+
+
 
 
 

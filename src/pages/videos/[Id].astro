@@ -29,7 +29,6 @@ const video = videosData.videos.find((v) => v.id === String(videoId));
                     <iframe
                         src={video.url.replace("youtu.be", "www.youtube.com/embed").replace("watch?v=", "embed/")}
                         title={video.title}
-                        frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen
                     ></iframe>
@@ -43,8 +42,8 @@ const video = videosData.videos.find((v) => v.id === String(videoId));
         </main>
         ) : (
         <main>
-            <h1>Video no encontrado</h1>
-            <p>El video que buscas no está disponible.</p>
+            <h1>Vuelve pronto</h1>
+            <p>El video que buscas no está disponible</p>
         </main>
         )}
     </body>

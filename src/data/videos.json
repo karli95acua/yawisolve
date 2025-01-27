@@ -56,7 +56,7 @@
         },
         {   
             "id": "7",
-            "title": "Crear Usuario móvil: supervisor de tareo/cosecha",
+            "title": "Crear Usuario: supervisor de tareo/cosecha",
             "description": "Cómo crear un supervisor y darle acceso móvil desde la web",
             "category": "Configuración",
             "platform": "WEB",
