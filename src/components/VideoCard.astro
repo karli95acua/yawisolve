@@ -1,33 +1,53 @@
 ---
+import ButtonVideo from './ButtonVideo.astro';
+
 // Props
 interface Video {
+    id: string;
     title: string;
     description: string;
     category: string;
     duration: string;
-    }
+    url: string; // Incluimos el campo URL
+}
 
-    interface Props {
+interface Props {
     videos: Video[];
-    }
+}
 
 const { videos } = Astro.props;
+
+// Función para obtener el ID del video desde la URL
+function getYouTubeId(url: string): string | null {
+    const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+}
 ---
 <section class="video-card-list">
-    {videos.map((video) => (
-        <div class="video-card">
-        <div class="video-thumbnail">
-            <img src="" alt="Thumbnail" />
-        </div>
-        <div class="video-info">
-            <h3 class="video-title">{video.title}</h3>
-            <p class="video-description">{video.description}</p>
-            <p class="video-meta">
-            <span class="category">{video.category}</span> • <span class="duration">{video.duration}</span>
-            </p>
-        </div>
-        </div>
-    ))}
+    {videos.map((video) => {
+        const videoId = getYouTubeId(video.url);
+        const thumbnailUrl = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : ''; // URL de la miniatura
+        return (
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src={thumbnailUrl} alt={`Miniatura de ${video.title}`} />
+                </div>
+                <div class="video-info">
+                    <div class="video-details">
+                        <h3 class="video-title">{video.title}</h3>
+                        <p class="video-description">{video.description}</p>
+                        <p class="video-meta">
+                            <span class="category">{video.category}</span> • <span class="duration">{video.duration}</span>
+                        </p>
+                    </div>
+                    <div class="button-video">
+                        <ButtonVideo videoId={video.id} />
+                    </div>
+                </div>
+            </div>
+        );
+    })}
 </section>
 
 <style>
@@ -37,6 +57,7 @@ const { videos } = Astro.props;
         gap: 1rem;
         margin: 2rem auto;
         max-width: 1300px;
+        padding-bottom: 2rem;
     }
 
     .video-card {
@@ -49,8 +70,8 @@ const { videos } = Astro.props;
         backdrop-filter: blur(100px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         transition: box-shadow 0.2s ease-in-out;
-        width: 100%; /* Ocupa todo el ancho del contenedor */
-        height: 150px; /* Ajusta automáticamente según el contenido */
+        width: 100%;
+        height: auto;
     }
 
     .video-card:hover {
@@ -58,9 +79,9 @@ const { videos } = Astro.props;
     }
 
     .video-thumbnail {
-        flex-shrink: 0; 
-        width: 300px; 
-        height: 280px; 
+        flex-shrink: 0;
+        width: 300px;
+        height: 180px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -68,34 +89,47 @@ const { videos } = Astro.props;
 
     .video-thumbnail img {
         width: 100%;
-        height: 100%; 
+        height: 100%;
         border-radius: 8px;
         object-fit: cover;
     }
 
     .video-info {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex: 1; /* Toma el resto del espacio disponible */
+        flex: 1;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .video-details {
+        flex: 1;
     }
 
     .video-title {
         font-size: 2rem;
         font-weight: bold;
-        margin: 0 0 0.1rem 0;
+        margin: 0 0 0.5rem 0;
     }
 
     .video-description {
         font-size: 1.5rem;
         color: #555;
         margin: 0 0 0.5rem 0;
+        font-style: italic;
     }
 
     .video-meta {
-        font-size: 1rem;
-        color: #888;
+        font-size: 1.2rem;
+        color: #204f72;
+        margin-bottom: 1rem;
+    }
+
+    .button-video {
+        display: flex;
+        padding-right: 4rem;
     }
 </style>
+
+
 
 

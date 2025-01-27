@@ -1,6 +1,7 @@
 {
         "videos": [
-        {
+        {   
+            "id": "1",
             "title": "Cómo configurar tus maquinarias desde la web",
             "description": "Flujo de creación de maquinarias desde la web",
             "category": "Maquinarias",
@@ -8,7 +9,8 @@
             "duration": "6 min",
             "url": ""
         },
-        {
+        {   
+            "id": "2",
             "title": "Cómo crear una planilla desde el móvil",
             "description": "Creación de planillas de labores para supervisores",
             "category": "Tareo Campo",
@@ -16,7 +18,8 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "3",
             "title": "Relación contratista y trabajador: cómo relacionar",
             "description": "Flujo para relacionar correctamente a un trabajador con su contratista desde la carga masiva",
             "category": "Tareo Campo",
@@ -24,7 +27,8 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "4",
             "title": "Configuración de Trato: día y productividad",
             "description": "Cómo configurar el trato por fundo para cada actividad creada",
             "category": "Tareo Campo",
@@ -32,7 +36,8 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "5", 
             "title": "Cómo crear una planilla desde el móvil",
             "description": "Creación de planillas de labores para supervisores",
             "category": "Tareo Campo",
@@ -40,7 +45,8 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "6",
             "title": "Planillas de campo: funcionalidades",
             "description": "Cómo crear, editar, corregir y validar planillas desde la web",
             "category": "Tareo Campo",
@@ -48,15 +54,17 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "7",
             "title": "Crear Usuario móvil: supervisor de tareo/cosecha",
             "description": "Cómo crear un supervisor y darle acceso móvil desde la web",
             "category": "Configuración",
             "platform": "WEB",
             "duration": "3 min",
-            "url": ""
+            "url": "https://youtu.be/DV6MBAh2dg0"
         },
-        {
+        {   
+            "id": "8",
             "title": "Cómo crear un trabajador",
             "description": "Creación de trabajadores: flujo completo",
             "category": "Configuración",
@@ -64,7 +72,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "9",
             "title": "Estructura agrícola: flujo completo",
             "description": "Desde cultivos y variedades a configurar tu estructura agrícola",
             "category": "Configuración",
@@ -72,7 +81,8 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "10",
             "title": "Actividades: configuraciones y sus tratos",
             "description": "Guía completa para crear actividades y configurarlas",
             "category": "Configuración",
@@ -80,7 +90,8 @@
             "duration": "7 min",
             "url": ""
         },
-        {
+        {   
+            "id": "11",
             "title": "Centros de costo y cómo relacionarlos con las actividades",
             "description": "Creación de CECOS y configuración de agrupadores con actividades",
             "category": "Configuración",
@@ -88,7 +99,8 @@
             "duration": "6 min",
             "url": ""
         },
-        {
+        {   
+            "id": "12",
             "title": "Homologación de trabajadores: paso a paso para homologar de genéricos a trabajadores",
             "description": "Guía completa desde creación de genéricos hasta homologación",
             "category": "Tareo Campo",
@@ -96,7 +108,8 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "13",
             "title": "Cómo tarear trabajadores",
             "description": "Lectura de trabajadores desde el móvil en gestión de planillas",
             "category": "Tareo Campo",
@@ -104,7 +117,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "14",
             "title": "Cómo configurar un grupo de labor",
             "description": "Para qué sirven los grupos de labores y cómo hacerlos",
             "category": "Tareo Campo",
@@ -112,7 +126,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "15",
             "title": "Cómo configurar un grupo de cosecha",
             "description": "Para qué sirven los grupos de cosecha y cómo hacerlos",
             "category": "Cosecha",
@@ -120,7 +135,8 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "16",
             "title": "Formatos de cosecha",
             "description": "Guía para la creación de envases de cosecha y como cargarlos a los supervisores",
             "category": "Cosecha",
@@ -128,7 +144,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "17",
             "title": "Cómo crear una planilla de cosecha y registrar kilos desde el móvil",
             "description": "Guía para la creación de planillas de cosecha y registro de envases",
             "category": "Cosecha",
@@ -136,7 +153,8 @@
             "duration": "6 min",
             "url": ""
         },
-        {
+        {   
+            "id": "18",
             "title": "Cómo registrar Kilos desde la web",
             "description": "Guía para registro de kilos y envases desde la web",
             "category": "Cosecha",
@@ -144,7 +162,8 @@
             "duration": "6 min",
             "url": ""
         },
-        {
+        {   
+            "id": "19",
             "title": "Creación de cartillas de evaluación",
             "description": "Guía completa para crear tus primeras evaluaciones de calidad",
             "category": "Calidad",
@@ -152,7 +171,8 @@
             "duration": "5 min",
             "url": ""
         },
-        {
+        {   
+            "id": "20",
             "title": "Umbrales y casos de evaluación",
             "description": "Cómo configurar tus fórmulas para las evaluaciones",
             "category": "Calidad",
@@ -160,7 +180,8 @@
             "duration": "6 min",
             "url": ""
         },
-        {
+        {   
+            "id": "21",
             "title": "Reportes de evaluación",
             "description": "Cómo revisar los resultados de tus evaluaciones",
             "category": "Calidad",
@@ -168,7 +189,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "22",
             "title": "Evaluaciones: flujo móvil",
             "description": "Cómo realizar una evaluación de campo o planta",
             "category": "Calidad",
@@ -176,7 +198,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "23",
             "title": "Configuración de aplicaciones de sanidad",
             "description": "Flujo de sanidad",
             "category": "Sanidad",
@@ -184,7 +207,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "24",
             "title": "Sanidad: umbrales y casos",
             "description": "Cómo configurar tus fórmulas para tus evaluaciones de sanidad",
             "category": "Sanidad",
@@ -192,7 +216,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "25",
             "title": "Cómo crear una programación de aplicación",
             "description": "Flujo para crear órdenes de aplicación de sanidad",
             "category": "Sanidad",
@@ -200,7 +225,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "26",
             "title": "Maquinarias y sus tarifas: día y hora",
             "description": "Cómo configurar las tarifas de tus maquinarias e implementos",
             "category": "Maquinarias",
@@ -208,7 +234,8 @@
             "duration": "3 min",
             "url": ""
         },
-        {
+        {   
+            "id": "27",
             "title": "Cómo crear una solicitud diaria desde la web",
             "description": "Guía para solicitar el uso de una maquinaria",
             "category": "Maquinarias",
@@ -216,7 +243,8 @@
             "duration": "4 min",
             "url": ""
         },
-        {
+        {   
+            "id": "28",
             "title": "Cómo crear una planificación semanal desde el móvil: supervisor ",
             "description": "Guía para supervisores de maquinarias",
             "category": "Maquinarias",
