@@ -1,0 +1,30 @@
+---
+// Props
+interface Props {
+    videoId: string;
+}
+
+const { videoId } = Astro.props;
+---
+<a href={`/videos/${videoId}`} class="btn-tutorial">
+    Ver Tutorial
+</a>
+
+<style>
+    .btn-tutorial {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #204f72;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 1.3rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease-in-out;
+        text-align: center;
+    }
+
+    .btn-tutorial:hover {
+        background-color: #0b2332;
+    }
+</style>

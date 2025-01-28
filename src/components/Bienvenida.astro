@@ -1,0 +1,19 @@
+---
+export interface Props {
+    empresa: string;
+}
+const { empresa } = Astro.props;
+---
+
+<div class="bienvenida">
+    <h1>Bienvenido a tu Portal de Tutoriales {empresa ? `- ${empresa}` : ''}</h1>
+</div>
+
+<style>
+    .bienvenida h1 {
+        text-align: center;
+        font-size: 30px;
+        margin-top: 3rem;
+        
+    }
+</style>

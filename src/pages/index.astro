@@ -1,0 +1,30 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Bienvenida from '../components/Bienvenida.astro';
+import Footer from '../components/Footer.astro';
+import Carrusel from '../components/Carrusel.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import VideosRecomendados from '../components/VideosRecomendados.astro';
+import 'flowbite';
+
+
+const empresa = "Agricola Leo's Produce";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+
+		<main>
+			<Bienvenida empresa={empresa} />
+			<Carrusel />
+			<VideosRecomendados />	
+		</main>
+		<Footer />
+	</body>
+</html>

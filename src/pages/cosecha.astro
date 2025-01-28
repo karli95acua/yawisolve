@@ -1,0 +1,132 @@
+---
+import HeaderModule from '../components/HeaderModule.astro';
+import VideoCard from '../components/VideoCard.astro';
+import videosData from '../data/videos.json';
+import '../styles/global.css';
+
+interface Video {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  platform: string;
+  duration: string;
+  url: string;
+}
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calidad</title>
+  </head>
+  <body>
+    <HeaderModule title="Calidad" />
+    <main>
+      <h1>Tutoriales de Calidad</h1>
+
+      <!-- Botones de filtro -->
+      <div class="platform-switcher">
+        <button id="web-button" class="platform-button active" data-platform="WEB">WEB</button>
+        <button id="movil-button" class="platform-button" data-platform="MOVIL">MOVIL</button>
+      </div>
+
+      <!-- Contenedor para los videos -->
+      <div id="video-container">
+        <!-- Videos WEB -->
+        <div id="web-videos" class="video-card-list">
+          <VideoCard videos={videosData.videos.filter((video) => video.category === "Calidad" && video.platform === "WEB")} />
+        </div>
+
+        <!-- Videos MOVIL -->
+        <div id="movil-videos" class="video-card-list hidden">
+          <VideoCard videos={videosData.videos.filter((video) => video.category === "Calidad" && video.platform === "MOVIL")} />
+        </div>
+      </div>
+    </main>
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", () => {
+        const webButton = document.getElementById("web-button");
+        const movilButton = document.getElementById("movil-button");
+        const webVideos = document.getElementById("web-videos");
+        const movilVideos = document.getElementById("movil-videos");
+
+        // Función para alternar entre listas
+        const showVideos = (platform) => {
+          if (platform === "WEB") {
+            webVideos.classList.remove("hidden");
+            movilVideos.classList.add("hidden");
+            webButton.classList.add("active");
+            movilButton.classList.remove("active");
+          } else if (platform === "MOVIL") {
+            movilVideos.classList.remove("hidden");
+            webVideos.classList.add("hidden");
+            movilButton.classList.add("active");
+            webButton.classList.remove("active");
+          }
+        };
+
+        // Manejar clics en botones
+        webButton.addEventListener("click", () => showVideos("WEB"));
+        movilButton.addEventListener("click", () => showVideos("MOVIL"));
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    color: #204f72;
+    font-size: 2rem;
+  }
+
+  .platform-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .platform-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .platform-button.active {
+    background-color: #204f72;
+    color: white;
+  }
+
+  .platform-button:hover {
+    background-color: #163e57;
+  }
+
+  .video-card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem auto;
+    padding: 1rem;
+    max-width: 1200px;
+  }
+
+  .video-card-list.hidden {
+    display: none;
+  }
+
+  .no-videos {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: #888;
+  }
+</style>

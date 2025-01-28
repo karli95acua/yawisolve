@@ -1,0 +1,133 @@
+---
+import videosData from '../data/videos.json';
+
+// Define la interfaz para los videos
+interface Video {
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    platform: string;
+    duration: string;
+    url: string;
+}
+
+// Función para obtener un subconjunto aleatorio de videos
+function getRandomVideos(videos: Video[], count: number): Video[] {
+    const shuffled = [...videos].sort(() => 0.5 - Math.random()); // Mezcla aleatoriamente los videos
+    return shuffled.slice(0, count); // Devuelve el número deseado de videos
+}
+
+// Imagen predeterminada
+const DEFAULT_THUMBNAIL = "fondo1.jpg";
+
+// Seleccionar 4 videos aleatorios
+const recommendedVideos: Video[] = getRandomVideos(videosData.videos, 4);
+---
+<section class="downloads">
+    <h2>Recomendación de Tutoriales</h2>
+    <div id="videos-container" class="downloads-grid">
+        {recommendedVideos.map((video) => (
+            <a href={`/videos/${video.id}`} class="download-item">
+                <div class="thumbnail">
+                    <img src={DEFAULT_THUMBNAIL} alt={`Miniatura de ${video.title}`} />
+                </div>
+                <div class="details">
+                    <h3>{video.title}</h3>
+                    <p>{video.description}</p>
+                </div>
+            </a>
+        ))}
+    </div>
+</section>
+
+<style>
+    h2 {
+        color: black;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+    }
+
+    .downloads {
+        padding: 0 3rem;
+        max-width: 1200px;
+        margin: 1rem auto;
+    }
+
+    .downloads-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+    }
+
+    .download-item {
+        background-color: #f8f8f8;
+        height: 300px;
+        border: 1px solid hsl(207, 24%, 51%);
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none; /* Eliminamos subrayado */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .thumbnail {
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+    }
+
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .download-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .download-item .details {
+        background: #204f72;
+        color: #f8f8f8;
+        width: 100%;
+        padding: 1rem;
+        text-align: center;
+        backdrop-filter: blur(10px);
+    }
+
+    .download-item .details h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .download-item .details p {
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+        .downloads {
+            padding: 0 1.5rem;
+        }
+
+        .downloads-grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .download-item {
+            height: 180px;
+        }
+
+        .thumbnail {
+            height: 120px;
+        }
+    }
+</style>
