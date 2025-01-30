@@ -251,6 +251,15 @@
             "platform": "MOVIL",
             "duration": "4 min",
             "url": ""
+        },
+        {   
+            "id": "29",
+            "title": "Cómo iniciar sesión desde el móvil",
+            "description": "Guía para primeros pasos",
+            "category": "Configuración",
+            "platform": "MOVIL",
+            "duration": "4 min",
+            "url": ""
         }
         ]
     }

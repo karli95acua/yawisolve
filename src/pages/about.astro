@@ -1,23 +1,48 @@
 ---
-import Layout from '../layouts/YawiSolve.astro';
+import Header from "../components/HeaderModule.astro"
+import Footer from "../components/Footer.astro"
 ---
+<Header title="Sobre nosotros"> </Header>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="container">
+	<div class="description-card">
+		<div class="description">
+			YAWI, empresa dedicada al servicio de desarrollo de tecnologia para el soporte de la operacion agricola, tiene como vision ser una empresa lider de soluciones tecnologicas en el rubro y expandirse a mercados internacionales. 
+			Como parte de su desarrollo y direccion estrategica.	
+		</div>
+	</div>
+</div>
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>
-		Layaout principal
-	</p>
+<Footer />
+<style>
+	.container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 50vh;
+		margin: 0;
+	}
 
-	<p>
-		Sobre Agritracer 
-	</p>
+	.description-card {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 2rem;
+		border: 1px solid #ddd;
+		border-radius: 12px;
+		background-color: rgba(32, 79, 114, 0.3);
+		backdrop-filter: blur(10px);
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		transition: box-shadow 0.2s ease-in-out;
+		width: 60%;
+		max-width: 800px; /* Evita que sea demasiado ancho */
+		text-align: center;
+	}
 
-	<p>
-		Sobre Yawi
-	</p>
-
-</Layout>
+	.description {
+		font-size: 2rem;
+		line-height: 1.5;
+		color: #204f72;
+	}
+</style>

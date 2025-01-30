@@ -80,6 +80,7 @@ const recommendedVideos: Video[] = getRandomVideos(videosData.videos, 4);
         width: 100%;
         height: 180px;
         overflow: hidden;
+        flex-shrink: 0;
     }
 
     .thumbnail img {
@@ -88,29 +89,32 @@ const recommendedVideos: Video[] = getRandomVideos(videosData.videos, 4);
         object-fit: cover;
     }
 
-    .download-item:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .download-item .details {
+    .details {
         background: #204f72;
         color: #f8f8f8;
-        width: 100%;
+        flex-grow: 1;
+        height: 8rem;
         padding: 1rem;
         text-align: center;
-        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
-    .download-item .details h3 {
+    .details h3 {
         margin: 0;
         font-size: 1.2rem;
         font-weight: bold;
     }
 
-    .download-item .details p {
+    .details p {
         margin: 0;
         font-size: 0.9rem;
+    }
+
+    .download-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     @media (max-width: 768px) {
@@ -131,3 +135,4 @@ const recommendedVideos: Video[] = getRandomVideos(videosData.videos, 4);
         }
     }
 </style>
+
