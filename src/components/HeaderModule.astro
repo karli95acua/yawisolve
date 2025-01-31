@@ -21,7 +21,6 @@ const { title } = Astro.props;
             <div class="title">{title}</div>
         </div>
         <div class="internal-links">
-            <!-- Opcional, para futuros enlaces -->
         </div>
     </nav>
 </header>
@@ -43,9 +42,11 @@ const { title } = Astro.props;
         align-items: center;
     }
     .logo {
-        width: 12rem;
-        height: auto;
-    }
+		width: 12rem !important;
+		height: auto;
+		max-width: 100%;
+		display: block;
+	}
     .title-container {
         display: flex;
         justify-content: center; /* Centra horizontalmente */

@@ -4,6 +4,7 @@ import VideoCard from '../components/VideoCard.astro';
 import videosData from '../data/videos.json';
 import '../styles/global.css';
 
+// Lista de videos para WEB y MOVIL
 interface Video {
   id: string;
   title: string;
@@ -31,16 +32,20 @@ interface Video {
         <button id="movil-button" class="platform-button" data-platform="MOVIL">MOVIL</button>
       </div>
 
-      <!-- Contenedor para los videos -->
+      <!-- Contenedor de videos -->
       <div id="video-container">
         <!-- Videos WEB -->
         <div id="web-videos" class="video-card-list">
-          <VideoCard videos={videosData.videos.filter((video) => video.category === "Tareo Campo" && video.platform === "WEB")} />
+          <VideoCard videos={videosData.videos.filter(
+            (video) => video.platform === "WEB" && video.category === "Tareo Campo"
+          )} />
         </div>
 
         <!-- Videos MOVIL -->
         <div id="movil-videos" class="video-card-list hidden">
-          <VideoCard videos={videosData.videos.filter((video) => video.category === "Tareo Campo" && video.platform === "MOVIL")} />
+          <VideoCard videos={videosData.videos.filter(
+            (video) => video.platform === "MOVIL" && video.category === "Tareo Campo"
+          )} />
         </div>
       </div>
     </main>
@@ -52,7 +57,6 @@ interface Video {
         const webVideos = document.getElementById("web-videos");
         const movilVideos = document.getElementById("movil-videos");
 
-        // Función para alternar entre listas
         const showVideos = (platform) => {
           if (platform === "WEB") {
             webVideos.classList.remove("hidden");
@@ -77,9 +81,7 @@ interface Video {
 
 <style>
   h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     margin-top: 2rem;
     color: #204f72;
     font-size: 2rem;
@@ -122,11 +124,3 @@ interface Video {
   .video-card-list.hidden {
     display: none;
   }
-
-  .no-videos {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 1.5rem;
-    color: #888;
-  }
-</style>

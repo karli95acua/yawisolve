@@ -1,5 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import Image from "astro/components/Image.astro";
+import myLogo from '../assets/SOLVE.png';
 
 ---
 <script src="/node_modules/flowbite/dist/flowbite.js" is:inline></script>
@@ -7,11 +9,9 @@ import HeaderLink from './HeaderLink.astro';
 		
 		<nav>
 			<div class="logo-container">
-				<img src="/SOLVE.png" alt="Logo Yawi Solve" class="logo" />
+				<Image src={myLogo} alt="Logo Yawi Solve" class="logo" />
 				
 			</div>
-			
-			
 			
 			<div class="internal-links">
 				<HeaderLink href="/">Videos</HeaderLink>
@@ -33,10 +33,10 @@ import HeaderLink from './HeaderLink.astro';
 	}
 
 	.logo {
-		width: 8rem !important; /* Tamaño más pequeño */
+		width: 12rem !important;
 		height: auto;
-		max-width: 100%; /* Asegura que no supere su contenedor */
-		display: block; /* Evita espacios extra */
+		max-width: 100%;
+		display: block;
 	}
 
 	.btn-logout {
