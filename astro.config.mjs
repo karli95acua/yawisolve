@@ -4,6 +4,8 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import node from '@astrojs/node';
+import tailwind from "@astrojs/tailwind";
+
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,5 +14,5 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone', // Configuración para Node.js (standalone es comúnmente usado)
   }), // Adaptador para Node.js
-  integrations: [mdx(), sitemap(), react()],
+  integrations: [mdx(), sitemap(), react(), tailwind()],
 });

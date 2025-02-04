@@ -1,17 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,vue}',
-            './node_modules/flowbite/**/*.js'
-  ],
-
+module.exports = {
+  content: ['./src/**/*.{astro,html,js,jsx,ts,tsx,vue}'],
   theme: {
     extend: {},
   },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
   ],
-}
-module.exports = {
   darkMode: 'class',
-}
+};
+
 

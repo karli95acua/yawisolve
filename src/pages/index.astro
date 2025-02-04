@@ -3,10 +3,11 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Bienvenida from '../components/Bienvenida.astro';
 import Footer from '../components/Footer.astro';
-import Carrusel from '../components/Carrusel.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import VideosRecomendados from '../components/VideosRecomendados.astro';
 import 'flowbite';
+import "../styles/global.css";
+import CardCarousel from '../components/CardCarrusel';
 
 
 const empresa = "Agricola Leo's Produce";
@@ -19,10 +20,9 @@ const empresa = "Agricola Leo's Produce";
 	</head>
 	<body>
 		<Header />
-
 		<main>
 			<Bienvenida empresa={empresa} />
-			<Carrusel />
+			<CardCarousel client:load/>
 			<VideosRecomendados />	
 		</main>
 		<Footer />
