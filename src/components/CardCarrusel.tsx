@@ -44,7 +44,7 @@ const CardCarousel = () => {
         <div className="relative overflow-hidden p-8">
             {/* CARDS */}
             <div className="mx-auto max-w-8xl">
-            <p className="mb-6 text-2xl font-semibold">
+            <p className="mb-6 text-4xl font-semibold">
             <span className="text-slate-500 flex justify-center items-center h-20">Visita los Módulos disponibles en tu portal</span>
             </p>
             <motion.div
@@ -87,24 +87,26 @@ const CardCarousel = () => {
     );
 };
 
-const Card = ({ url, title, description }: ItemType) => {
+const Card = ({ url, title, description, href }: ItemType & { href: string }) => {
     return (
-        <div
-        className="relative shrink-0 cursor-pointer rounded-2xl bg-white shadow-md transition-all hover:scale-[1.08] hover:shadow-xl"
-        style={{
-            width: CARD_WIDTH,
-            height: CARD_HEIGHT,
-            marginRight: MARGIN,
-            backgroundImage: `url(${url})`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-        }}
-        >
-        <div className="absolute inset-0 z-20 rounded-2xl bg-gradient-to-b from-black/90 via-black/60 to-black/0 p-6 text-white transition-[backdrop-filter] hover:backdrop-blur-sm">
-            <p className="my-2 text-3xl font-bold">{title}</p>
-            <p className="text-lg text-slate-300">{description}</p>
-        </div>
-        </div>
+        <a href={href}>
+            <div
+            className="relative shrink-0 cursor-pointer rounded-2xl bg-white shadow-md transition-all hover:scale-[1.08] hover:shadow-xl"
+            style={{
+                width: CARD_WIDTH,
+                height: CARD_HEIGHT,
+                marginRight: MARGIN,
+                backgroundImage: `url(${url})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+            }}
+            >
+                <div className="absolute inset-0 z-20 rounded-2xl bg-gradient-to-b from-black/90 via-black/60 to-black/0 p-6 text-white transition-[backdrop-filter] hover:backdrop-blur-sm">
+                    <p className="my-2 text-3xl font-bold">{title}</p>
+                    {/* <p className="text-lg text-slate-300">{description}</p> */}
+                </div>
+            </div>
+        </a> 
     );
 };
 
@@ -115,6 +117,7 @@ type ItemType = {
     url: string;
     title: string;
     description: string;
+    href: string;
 };
 
 const items: ItemType[] = [
@@ -124,13 +127,15 @@ const items: ItemType[] = [
         title: "Configuración",
         description:
         "Maestros de configuración: Estructura Agrícola, Trabajadores, Actividades y más.",
+        href: "/configuracion",
     },
     {
         id: 2,
-        url: "/fondo.jpeg",
+        url: "/labores.jpeg",
         title: "Tareo Campo",
         description:
         "Configuración de grupos, principales funcionalidades de tus planillas de campo, reportes y todo sobre registro de labores.",
+        href: "/tareo-campo",
     },
     {
         id: 3,
@@ -138,6 +143,7 @@ const items: ItemType[] = [
         title: "Cosecha",
         description:
         "Formatos, configuración de cosecha, registro de envases y cosecha diaria.",
+        href: "/cosecha",
     },
     {
         id: 4,
@@ -145,20 +151,23 @@ const items: ItemType[] = [
         title: "Calidad",
         description:
         "Configuración de evaluaciones, umbrales y fórmulas para calidad de tus procesos.",
+        href: "/calidad",
     },
     {
         id: 5,
-        url: "/fondo.jpeg",
+        url: "/sanidad.jpeg",
         title: "Sanidad",
         description:
         "Evaluaciones de plagas y programaciones de aplicaciones en un solo lugar.",
+        href: "/sanidad",
     },
     {
         id: 6,
-        url: "/fondo.jpeg",
+        url: "/maq.jpeg",
         title: "Maquinarias",
         description:
         "Configuración de maquinarias, tarifas y órdenes de trabajo.",
+        href: "/maquinarias",
     }
 ];
 
