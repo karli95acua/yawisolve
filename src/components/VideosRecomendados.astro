@@ -1,27 +1,21 @@
 ---
-import videosData from '../data/videos.json';
+import { getVideos } from '../services/api';
 
 interface Video {
-    id: string;
-    title: string;
-    description: string;
-    category: string;
-    platform: string;
-    duration: string;
-    url: string;
+    id: number;
+    titulo: string;
+    url_s3: string;
+    modulo_id: number;
 }
 
-
-function getRandomVideos(videos: Video[], count: number): Video[] {
+async function getRandomVideos(count: number): Promise<Video[]> {
+    const videos = await getVideos(); // Obtener videos desde la API
     const shuffled = [...videos].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 }
 
-// Imagen predeterminada
-const DEFAULT_THUMBNAIL = "fondo1.jpg";
-
 // Seleccionar 6 videos aleatorios
-const recommendedVideos: Video[] = getRandomVideos(videosData.videos, 6);
+const recommendedVideos: Video[] = await getRandomVideos(6);
 ---
 
 <section class="bg-slate-100 py-8">
@@ -31,15 +25,15 @@ const recommendedVideos: Video[] = getRandomVideos(videosData.videos, 6);
             {recommendedVideos.map((video) => (
                 <a href={`/videos/${video.id}`} class="group relative block overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-[1.05] hover:shadow-xl">
                     <div class="w-full h-80 overflow-hidden">
-                        <img src={DEFAULT_THUMBNAIL} alt={`Miniatura de ${video.title}`} class="w-full h-full object-cover" />
+                        <video controls class="w-full h-full object-cover">
+                            <source src={video.url_s3} type="video/mp4" />
+                        </video>
                     </div>
                     <div class="absolute inset-x-0 bottom-0 z-20 rounded-b-2xl bg-gradient-to-b from-transparent via-black/60 to-black/90 p-6 text-white">
-                        <h3 class="my-2 text-2xl font-bold">{video.title}</h3>
-                        <p class="text-sm text-slate-300">{video.description}</p>
+                        <h3 class="my-2 text-2xl font-bold">{video.titulo}</h3>
                     </div>
                 </a>
             ))}
         </div>
     </div>
 </section>
-
