@@ -2,9 +2,7 @@
 import HeaderModule from '../components/HeaderModule.astro';
 import VideoCard from '../components/VideoCard.astro';
 import videosData from '../data/videos.json';
-import '../styles/global.css';
 
-// Lista de videos para WEB y MOVIL
 interface Video {
   id: string;
   title: string;
@@ -19,30 +17,42 @@ interface Video {
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Maquinarias</title>
+    <title>Maquinaria</title>
   </head>
-  <body>
-    <HeaderModule title="Maquinarias" />
-    <main>
-      <h1>Tutoriales de Maquinarias</h1>
+  <body class="bg-slate-100">
+    <HeaderModule title="Maquinaria" />
+    <main class="py-8">
+      <h1 class="text-4xl font-semibold text-center text-slate-500 mb-8">Tutoriales de Maquinaria</h1>
 
       <!-- Botones de filtro -->
-      <div class="platform-switcher">
-        <button id="web-button" class="platform-button active" data-platform="WEB">WEB</button>
-        <button id="movil-button" class="platform-button" data-platform="MOVIL">MOVIL</button>
+      <div class="flex justify-center gap-4 mb-8">
+        <button
+          id="web-button"
+          class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-medium transition-colors hover:bg-slate-500 hover:scale-[1.01] active:bg-slate-600"
+          data-platform="WEB"
+        >
+          WEB
+        </button>
+        <button
+          id="movil-button"
+          class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-medium transition-colors hover:bg-slate-500 hover:scale-[1.01] active:bg-slate-600"
+          data-platform="MOVIL"
+        >
+          MOVIL
+        </button>
       </div>
 
       <!-- Contenedor de videos -->
-      <div id="video-container">
+      <div id="video-container" class="mx-auto max-w-4xl px-4">
         <!-- Videos WEB -->
-        <div id="web-videos" class="video-card-list">
+        <div id="web-videos" class="space-y-6">
           <VideoCard videos={videosData.videos.filter(
             (video) => video.platform === "WEB" && video.category === "Maquinarias"
           )} />
         </div>
 
         <!-- Videos MOVIL -->
-        <div id="movil-videos" class="video-card-list hidden">
+        <div id="movil-videos" class="space-y-6 hidden">
           <VideoCard videos={videosData.videos.filter(
             (video) => video.platform === "MOVIL" && video.category === "Maquinarias"
           )} />
@@ -61,13 +71,13 @@ interface Video {
           if (platform === "WEB") {
             webVideos.classList.remove("hidden");
             movilVideos.classList.add("hidden");
-            webButton.classList.add("active");
-            movilButton.classList.remove("active");
+            webButton.classList.add("bg-slate-400");
+            movilButton.classList.remove("bg-slate-400");
           } else if (platform === "MOVIL") {
             movilVideos.classList.remove("hidden");
             webVideos.classList.add("hidden");
-            movilButton.classList.add("active");
-            webButton.classList.remove("active");
+            movilButton.classList.add("bg-slate-400");
+            webButton.classList.remove("bg-slate-400");
           }
         };
 
@@ -78,49 +88,3 @@ interface Video {
     </script>
   </body>
 </html>
-
-<style>
-  h1 {
-    text-align: center;
-    margin-top: 2rem;
-    color: #204f72;
-    font-size: 2rem;
-  }
-
-  .platform-switcher {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .platform-button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .platform-button.active {
-    background-color: #204f72;
-    color: white;
-  }
-
-  .platform-button:hover {
-    background-color: #163e57;
-  }
-
-  .video-card-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem auto;
-    padding: 1rem;
-    max-width: 1200px;
-  }
-
-  .video-card-list.hidden {
-    display: none;
-  }

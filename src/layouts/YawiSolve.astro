@@ -15,6 +15,8 @@ const { title, description } = Astro.props;
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="/SOLVE.png" />
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -66,7 +68,6 @@ const { title, description } = Astro.props;
 				</div>
 				<div class="prose">
 					<div class="title">
-						</div>
 						<h1>{title}</h1>
 						<hr />
 					</div>
