@@ -2,7 +2,6 @@
 import HeaderModule from '../components/HeaderModule.astro';
 import VideoCard from '../components/VideoCard.astro';
 import videosData from '../data/videos.json';
-import Bar from '../components/Bar.astro';
 
 interface Video {
   id: string;
@@ -22,53 +21,33 @@ interface Video {
   </head>
   <body class="bg-slate-100">
     <HeaderModule title="Configuración" />
-    <Bar />
-    <main class="py-8">
-      <h1 class="text-4xl font-semibold text-center text-slate-500 mb-8">
-        Tutoriales de Configuración
-      </h1>
 
-      <!-- Botones de filtro -->
-      <div class="flex justify-center gap-4 mb-8">
-        <button
-          id="web-button"
-          class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-medium transition-colors hover:bg-slate-500 hover:scale-[1.01] active:bg-slate-600"
-          data-platform="WEB"
-        >
-          WEB
-        </button>
-        <button
-          id="movil-button"
-          class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-medium transition-colors hover:bg-slate-500 hover:scale-[1.01] active:bg-slate-600"
-          data-platform="MOVIL"
-        >
-          MOVIL
-        </button>
-      </div>
+    <div class="flex">
+      <main class="py-8 flex-1">
+        <h1 class="text-4xl font-semibold text-center text-slate-500 mb-8">
+          Tutoriales de Configuración
+        </h1>
 
-      <!-- Contenedor de videos -->
-      <div id="video-container" class="mx-auto max-w-4xl px-4">
-        <!-- Videos WEB -->
-        <div id="web-videos" class="space-y-6">
-          <VideoCard
-            videos={videosData.videos.filter(
-              (video) =>
-                video.platform === "WEB" && video.category === "Configuración"
-            )}
-          />
+        <!-- Botones de filtro -->
+        <div class="flex justify-center gap-4 mb-8">
+          <button id="web-button" class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-medium transition-colors hover:bg-slate-500 hover:scale-[1.01] active:bg-slate-600" data-platform="WEB">
+            WEB
+          </button>
+          <button id="movil-button" class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-medium transition-colors hover:bg-slate-500 hover:scale-[1.01] active:bg-slate-600" data-platform="MOVIL">
+            MOVIL
+          </button>
         </div>
+        <div id="video-container" class="mx-auto max-w-4xl px-4">
+          <div id="web-videos" class="space-y-6">
+            <VideoCard videos={videosData.videos.filter((video) => video.platform === "WEB" && video.category === "Configuración")} />
+          </div>
 
-        <!-- Videos MOVIL -->
-        <div id="movil-videos" class="space-y-6 hidden">
-          <VideoCard
-            videos={videosData.videos.filter(
-              (video) =>
-                video.platform === "MOVIL" && video.category === "Configuración"
-            )}
-          />
+          <div id="movil-videos" class="space-y-6 hidden">
+            <VideoCard videos={videosData.videos.filter((video) => video.platform === "MOVIL" && video.category === "Configuración")} />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
 
     <!-- Script para manejar los botones de filtro -->
     <script is:inline>
@@ -99,4 +78,6 @@ interface Video {
     </script>
   </body>
 </html>
+
+
 

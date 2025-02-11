@@ -1,0 +1,19 @@
+
+<button id="logoutButton" class="btn-logout inline-block px-6 py-2 bg-slate-800 text-white text-lg font-bold rounded-lg transition-colors hover:scale-[1.05] hover:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2">
+    Cerrar sesión
+</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const logoutButton = document.getElementById("logoutButton");
+
+        if (!logoutButton) {
+            console.error("Error: No se encontró el botón de logout.");
+            return;
+        }
+
+        logoutButton.addEventListener("click", () => {
+            window.location.href = "/inicio";
+        });
+    });
+</script>

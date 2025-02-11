@@ -1,125 +1,29 @@
 ---
-import HeaderLink from './HeaderLink.astro';
 import Image from "astro/components/Image.astro";
-import myLogo from '../assets/SOLVE.png';
-
+import myLogo from '../assets/SOLVE2.png';
+import Logout from './Logout.astro';
 ---
-<script src="/node_modules/flowbite/dist/flowbite.js" is:inline></script>
-	<header>
-		
-		<nav>
-			<div class="logo-container">
-				<Image src={myLogo} alt="Logo Yawi Solve" class="logo" />
-				
-			</div>
-			
-			<div class="internal-links">
-				<HeaderLink href="/">Videos</HeaderLink>
-			</div>
-			<div>
-				<button class="btn-logout" onclick="window.location.href='/Inicio';">Cerrar sesión</button>
-			</div>
-		</nav>
-	</header>
 
-	
-<style>
-	.logo-container {
-		display: flex;
-		flex-direction: column; 
-		align-items: center; 
-		
-	}
+<header class="w-full bg-white shadow-md px-4 py-4 flex items-center justify-between relative">
+    <!-- Logo -->
+    <div class="flex items-center px-4 mx-4">
+        <a href="/">
+            <Image src={myLogo} alt="Logo Yawi Solve" class="w-32 h-auto max-w-full" />
+        </a>
+    </div>
 
-	.logo {
-		width: 12rem !important;
-		height: auto;
-		max-width: 100%;
-		display: block;
-	}
+    <nav class="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+        <a href="/" class="text-gray-700 text-2xl font-medium pb-2 border-b-4 border-transparent hover:border-[#204f72] transition-all duration-300">
+            Videos
+        </a>
+    </nav>
 
-	.btn-logout {
-		background-color: #204f72;
-		color: white;
-		border: none;
-		padding: 5px 10px;
-		font-size: 0.8rem;
-		border-radius: 6px;
-		cursor: pointer;
-		transition: background-color 0.3s ease;
-		margin: 10px; /* Elimina cualquier margen superior */
-	}
-
-	.btn-logout:hover {
-		background-color: #163d5c;
-	}
-
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
-
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: #204f72;
-	}
-	
-	@media (max-width: 720px) {
-		.social-links {
-			display: none;
-		}
-	}
-	.logo-yawisolve {
-	display: flex;
-	align-items: center;
-		}
-
-	.logo {
-	width: 12rem;
-	height: auto;
-	}
-	.logout-button {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-	}
-
-	.btn-logout {
-		background-color: #204f72; /* Color azul oscuro */
-		color: white;
-		border: none;
-		padding: 6px 12px;
-		font-size: 0.9rem;
-		border-radius: 8px;
-		cursor: pointer;
-		transition: background-color 0.3s ease;
-	}
-
-	.btn-logout:hover {
-		background-color: #163d5c; /* Azul más oscuro al pasar el cursor */
-	}
+    <div class="inline-flex items-center justify-center px-2 mx-2">
+        <Logout />
+    </div>
+</header>
 
 
-</style>
+
+
 

@@ -1,7 +1,7 @@
 ---
 import Image from "astro/components/Image.astro";
-import myLogo from '../assets/SOLVE.png';
-import '../styles/global.css';
+import myLogo from '../assets/SOLVE2.png';
+import Logout from "./Logout.astro";
 
 interface Props {
     title: string;
@@ -9,61 +9,27 @@ interface Props {
 
 const { title } = Astro.props;
 ---
-<header>
-    <meta charset="UTF-8" />
-    <nav>
-        <div class="logo-yawisolve">
-            <a href="/">
-                <Image src={myLogo} alt="Logo Yawi Solve" class="logo" />
-            </a>
-        </div>
-        <div class="title-container">
-            <div class="title">{title}</div>
-        </div>
-        <div class="internal-links">
-        </div>
+
+<header class="w-full bg-white shadow-md px-4 py-4 flex items-center justify-between relative">
+    <div class="flex items-center px-4 mx-4">
+        <a href="/">
+            <Image src={myLogo} alt="Logo Yawi Solve" class="w-32 h-auto max-w-full" />
+        </a>
+    </div>
+
+    <nav class="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+        <span class="text-gray-700 text-2xl font-medium pb-2 border-b-4 border-transparent hover:border-[#204f72] transition-all duration-300">
+            {title}
+        </span>
     </nav>
+
+    <div class="inline-flex items-center justify-center px-2 mx-2">
+        <Logout />
+    </div>
 </header>
 
-<style>
-    header {
-        margin: 0;
-        padding: 0 1em;
-        background: white;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-    nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Distribuye el logo, título y enlaces */
-    }
-    .logo-yawisolve {
-        display: flex;
-        align-items: center;
-    }
-    .logo {
-		width: 12rem !important;
-		height: auto;
-		max-width: 100%;
-		display: block;
-	}
-    .title-container {
-        display: flex;
-        justify-content: center; /* Centra horizontalmente */
-        align-items: center; /* Centra verticalmente */
-    }
-    .title {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #204f72;
-        text-align: center;
-        margin-right: 12rem;
-    }
-    .internal-links {
-        display: flex;
-        align-items: center;
-    }
-</style>
+
+
 
 
 
