@@ -28,3 +28,13 @@ const empresa = "Agricola Leo's Produce";
 		<Footer />
 	</body>
 </html>
+<script is:inline>
+	document.addEventListener("DOMContentLoaded", () => {
+	  const token = localStorage.getItem("token");
+  
+	  if (!token) {
+		window.location.href = "/login";  // 🔹 Si no hay sesión, redirigir al login
+	  }
+	});
+  </script>
+  

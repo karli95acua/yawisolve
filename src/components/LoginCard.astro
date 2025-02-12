@@ -1,7 +1,7 @@
 ---
 export interface Props {
-  onLogin: (email: string, password: string) => void; // Callback al iniciar sesión
-  onForgotPassword: () => void; // Callback al hacer clic en "Recuperar contraseña"
+  onLogin: (email: string, password: string) => void;
+  onForgotPassword: () => void;
 }
 ---
 
@@ -18,7 +18,7 @@ export interface Props {
     <label for="password">Contraseña</label>
     <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required />
 
-    <button type="submit" onclick="window.location.href='http://localhost:4321/';">Iniciar Sesión</button>
+    <button type="submit">Iniciar Sesión</button>
   </form>
 
   <!-- Recuperar contraseña -->
@@ -30,18 +30,31 @@ export interface Props {
     const form = document.getElementById("loginForm");
     const forgotPassword = document.getElementById("forgotPassword");
 
-    form?.addEventListener("submit", (event) => {
+    form?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const email = form.email.value;
       const password = form.password.value;
 
-      // Llama al callback pasado como prop
-      Astro.props.onLogin(email, password);
+      try {
+        const response = await fetch("http://localhost:4000/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })  // Captura datos ingresados y los envía
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || "Error en el login");
+
+        localStorage.setItem("token", data.token);  // Guarda el token en el almacenamiento local
+        window.location.href = "/";  // Redirige al usuario autenticado
+      } catch (error) {
+        console.error("Error en el login:", error);
+        alert(error.message);
+      }
     });
 
     forgotPassword?.addEventListener("click", (event) => {
       event.preventDefault();
-      // Llama al callback para recuperar contraseña
       Astro.props.onForgotPassword();
     });
   });
