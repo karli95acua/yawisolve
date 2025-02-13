@@ -1,7 +1,7 @@
 ---
 export interface Props {
-  onLogin: (email: string, password: string) => void;
-  onForgotPassword: () => void;
+  onLogin: (email: string, password: string) => void; // Callback al iniciar sesión
+  onForgotPassword: () => void; // Callback al hacer clic en "Recuperar contraseña"
 }
 ---
 
@@ -39,16 +39,23 @@ export interface Props {
         const response = await fetch("http://localhost:4000/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })  // Captura datos ingresados y los envía
+          body: JSON.stringify({ email, password }),
         });
 
         const data = await response.json();
         if (!response.ok) throw new Error(data.message || "Error en el login");
 
-        localStorage.setItem("token", data.token);  // Guarda el token en el almacenamiento local
-        window.location.href = "/";  // Redirige al usuario autenticado
+        // Guardamos los datos en localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("nombre", data.user.nombre);
+        localStorage.setItem("empresa", data.user.empresa?.nombre || "Sin empresa");
+
+        // Disparamos un evento para que el frontend se actualice
+        window.dispatchEvent(new Event("storage"));
+
+        // Redirigir al usuario a la página principal
+        window.location.href = "/";
       } catch (error) {
-        console.error("Error en el login:", error);
         alert(error.message);
       }
     });
