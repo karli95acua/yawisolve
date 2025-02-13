@@ -1,19 +1,18 @@
 ---
 import Image from "astro/components/Image.astro";
-import myLogo from '../assets/SOLVE2.png';
+import myLogo from '../assets/SOLVE.png';
 import Logout from './Logout.astro';
 ---
 
 <header class="w-full bg-white shadow-md px-4 py-4 flex items-center justify-between relative">
-    <!-- Logo -->
     <div class="flex items-center px-4 mx-4">
-        <a href="/">
-            <Image src={myLogo} alt="Logo Yawi Solve" class="w-32 h-auto max-w-full" />
+        <a href="/inicio">
+            <Image src={myLogo} alt="Logo Yawi Solve" class="w-44 h-auto max-w-full" />
         </a>
     </div>
 
     <nav class="absolute left-1/2 transform -translate-x-1/2 flex items-center">
-        <a href="/" class="text-gray-700 text-2xl font-medium pb-2 border-b-4 border-transparent hover:border-[#204f72] transition-all duration-300">
+        <a href="/" class="text-gray-700 text-3xl font-medium pb-2 border-b-4 border-transparent hover:border-[#204f72] transition-all duration-300">
             Videos
         </a>
     </nav>
