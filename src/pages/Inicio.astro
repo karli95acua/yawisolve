@@ -1,48 +1,61 @@
 ---
-/* 📌 Aquí van las importaciones y funciones */
-import LoginCard from '../components/LoginCard.astro';
-import '../styles/inicio.css';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Bienvenida from '../components/Bienvenida.jsx';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import VideosRecomendados from '../components/VideosRecomendados.astro';
+import 'flowbite';
+import "../styles/global.css";
+import CardCarousel from '../components/CardCarrusel';
 
-/* 📌 Función corregida para manejar el login sin errores */
-async function handleLogin(email: string, password: string) {
-  try {
-    const response = await fetch("http://localhost:4000/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })  // Enviar datos ingresados por el usuario
-    });
+if (typeof window !== "undefined") {
+  window.addEventListener("DOMContentLoaded", async function () {
+    const token = localStorage.getItem("token");
 
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Error en el login");
+    if (!token) {
+      window.location.href = "/login";
+      return;
+    }
 
-    localStorage.setItem("token", data.token);  // Guardar el token
-    window.location.href = "/";  // Redirigir al usuario autenticado
-  } catch (error: unknown) {  // 📌 TypeScript necesita definir el tipo de error
-    console.error("Error en el login:", error);
+    try {
+      const response = await fetch("http://localhost:4000/auth/validate", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+      });
 
-    // 📌 Solución para evitar error en alert(error.message)
-    const errorMessage = error instanceof Error ? error.message : "Ocurrió un error desconocido";
-    alert(errorMessage);
-  }
-}
+      if (!response.ok) {
+        throw new Error("Token inválido o expirado");
+      }
 
-/* 📌 Función para recuperar contraseña */
-function handleForgotPassword() {
-  alert("Función de recuperación de contraseña en desarrollo.");
+      const data = await response.json();
+      localStorage.setItem("nombre", data.user.nombre || "Usuario");
+      localStorage.setItem("empresa", data.user.empresa?.nombre || "Sin empresa");
+
+      // 🔹 Disparar un evento "storage" para que React se actualice correctamente
+      window.dispatchEvent(new Event("storage"));
+
+    } catch (error) {
+      console.error("❌ Error al validar el token:", error);
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+    }
+  });
 }
 ---
 
+<!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Login - Yawi Solve</title>
-    <link rel="icon" type="image/png" href="../../public/agritracer.png">
-
-  </head>
-  <body>
-    <LoginCard
-      onLogin={handleLogin}
-      onForgotPassword={handleForgotPassword}
-    />
-  </body>
+<head>
+  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+</head>
+<body>
+  <Header />
+  <main>
+    <Bienvenida client:only="react" />
+    <CardCarousel client:load />
+    <VideosRecomendados />
+  </main>
+  <Footer />
+</body>
 </html>
