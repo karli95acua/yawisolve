@@ -18,7 +18,7 @@ export default function Bienvenida() {
 
   return (
     <div className="text-center mt-12">
-      <h1 className="text-2xl md:text-3xl font-light text-gray-800">
+      <h1 className="text-2xl md:text-3xl font-light text-slate-800">
         Bienvenido <span className="font-semibold">{nombre}</span> a tu portal de tutoriales para
       </h1>
       <h1 className="text-2xl md:text-3xl font-light text-gray-800 mt-2">

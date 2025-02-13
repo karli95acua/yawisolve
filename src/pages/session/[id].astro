@@ -1,5 +1,6 @@
 ---
 import Header from "../../components/Header.astro";
+import Bienvenida from "../../components/Bienvenida";
 
 
 ---
@@ -8,7 +9,7 @@ import Header from "../../components/Header.astro";
     <meta charset="UTF-8" />
 <head>
 <Header/>
-
+<Bienvenida client:only="react" />
 </head>
 <body>
 

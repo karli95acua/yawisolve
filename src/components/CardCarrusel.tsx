@@ -45,7 +45,7 @@ const CardCarousel = () => {
             {/* CARDS */}
             <div className="mx-auto max-w-8xl">
             <p className="mb-6 text-4xl font-semibold">
-            <span className="text-slate-500 flex justify-center items-center h-20">Visita los Módulos disponibles en tu portal</span>
+            <span className="text-slate-800 flex justify-center items-center h-20">Visita los Módulos disponibles en tu portal</span>
             </p>
             <motion.div
                 animate={{
@@ -102,7 +102,7 @@ const Card = ({ url, title, description, href }: ItemType & { href: string }) =>
             }}
             >
                 <div className="absolute inset-0 z-20 rounded-2xl bg-gradient-to-b from-black/90 via-black/60 to-black/0 p-6 text-white transition-[backdrop-filter] hover:backdrop-blur-sm">
-                    <p className="my-2 text-3xl font-bold">{title}</p>
+                    <p className="my-2 text-3xl font-bold text-slate-200">{title}</p>
                     {/* <p className="text-lg text-slate-300">{description}</p> */}
                 </div>
             </div>
