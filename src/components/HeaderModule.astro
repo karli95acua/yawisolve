@@ -2,7 +2,7 @@
 import Image from "astro/components/Image.astro";
 import myLogo from '../assets/SOLVE.png';
 import Logout from "./Logout.astro";
-import ButtonPerfil from "../components/ButtonPerfil";
+import ButtonPerfil from "../components/ButtonPerfil.jsx";
 
 
 interface Props {
@@ -26,7 +26,7 @@ const { title } = Astro.props;
     </nav>
 
     <div class="inline-flex items-center justify-center px-2 mx-2">
-        <ButtonPerfil />
+        <ButtonPerfil client:load/>
         <Logout />
     </div>
 </header>
