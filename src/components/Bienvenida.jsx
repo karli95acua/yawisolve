@@ -10,32 +10,21 @@ export default function Bienvenida() {
       setEmpresa(localStorage.getItem("empresa") || "Desconocida");
     };
 
-    // Llamamos la primera vez
     updateData();
 
-    // Escuchar cambios en localStorage después del login
     window.addEventListener("storage", updateData);
     return () => window.removeEventListener("storage", updateData);
   }, []);
 
   return (
-    <div className="bienvenida">
-      <h1>Bienvenido {nombre} a tu portal de tutoriales para</h1>
-      <h1> {empresa}</h1>
-      <style>
-        {`
-          .bienvenida {
-            text-align: center;
-            margin-top: 3rem;
-          }
-          .bienvenida h1 {
-            font-size: 30px;
-            color: #333;
-            font-family: 'Open Sans', sans-serif;
-            font-weight: normal;
-          }
-        `}
-      </style>
+    <div className="text-center mt-12">
+      <h1 className="text-2xl md:text-3xl font-light text-gray-800">
+        Bienvenido <span className="font-semibold">{nombre}</span> a tu portal de tutoriales para
+      </h1>
+      <h1 className="text-2xl md:text-3xl font-light text-gray-800 mt-2">
+        <span className="font-semibold">{empresa}</span>
+      </h1>
     </div>
   );
 }
+
