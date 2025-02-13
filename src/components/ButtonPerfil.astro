@@ -1,0 +1,45 @@
+<a
+            class="flex items-center justify-center w-12 h-12 mr-8 rounded-full bg-gray-200 hover:bg-gray-300 transition cursor-pointer"
+            href="/session/[id]">
+            <svg
+              class="w-10 h-10 text-gray-800"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path      
+                d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"
+              />
+            </svg>
+</a>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const perfilButton = document.getElementById("perfilButton");
+
+        if (!perfilButton) {
+            console.error("Error: No se encontró el botón de logout.");
+            return;
+        }
+
+        perfilButton.addEventListener("click", () => {
+            // 🔹 Eliminar datos de sesión
+            localStorage.removeItem("token");
+            localStorage.removeItem("nombre");
+            localStorage.removeItem("empresa");
+
+            // 🔹 Disparar evento para actualizar la UI
+            window.dispatchEvent(new Event("storage"));
+
+            // 🔹 Redirigir al login
+            window.location.href = "/inicio";
+        });
+    });
+</script>
+
+
+
+
+
