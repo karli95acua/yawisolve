@@ -2,6 +2,8 @@
 import Image from "astro/components/Image.astro";
 import myLogo from '../assets/SOLVE.png';
 import Logout from './Logout.astro';
+import ButtonPerfil from "./ButtonPerfil.astro";
+import SearchBar from "./SearchBar.astro";
 ---
 
 <header class="w-full bg-white shadow-md px-4 py-4 flex items-center justify-between relative">
@@ -10,9 +12,11 @@ import Logout from './Logout.astro';
             <Image src={myLogo} alt="Logo Yawi Solve" class="w-44 h-auto max-w-full" />
         </a>
     </div>
-
-
+    <div class="flex-1 flex justify-center">
+        <SearchBar/>
+    </div>
     <div class="inline-flex items-center justify-center px-2 mx-2">
+        <ButtonPerfil />
         <Logout />
     </div>
 </header>

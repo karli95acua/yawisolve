@@ -1,30 +1,46 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function Bienvenida() {
-  const [nombre, setNombre] = useState(localStorage.getItem("nombre") || "Usuario");
-  const [empresa, setEmpresa] = useState(localStorage.getItem("empresa") || "Desconocida");
+const Bienvenida = () => {
+    const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const updateData = () => {
-      setNombre(localStorage.getItem("nombre") || "Usuario");
-      setEmpresa(localStorage.getItem("empresa") || "Desconocida");
-    };
+    useEffect(() => {
+        if (typeof window === "undefined") return; // Previene acceso en SSR
 
-    updateData();
+        const token = localStorage.getItem("token");
+        if (!token) {
+            window.location.href = "/login";
+            return;
+        }
 
-    window.addEventListener("storage", updateData);
-    return () => window.removeEventListener("storage", updateData);
-  }, []);
+        fetch("http://localhost:4000/auth/validate", {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Token inválido o expirado");
+            return response.json();
+        })
+        .then(data => {
+            setUser({ nombre: data.user.nombre, empresa: data.user.empresa?.nombre });
+        })
+        .catch(error => {
+            console.error("❌ Error al validar el token:", error);
+            localStorage.removeItem("token");
+            window.location.href = "/login";
+        });
+    }, []);
 
-  return (
-    <div className="text-center mt-12">
-      <h1 className="text-2xl md:text-3xl font-light text-slate-800">
-        Bienvenido <span className="font-semibold">{nombre}</span> a tu portal de tutoriales para
-      </h1>
-      <h1 className="text-2xl md:text-3xl font-light text-gray-800 mt-2">
-        <span className="font-semibold">{empresa}</span>
-      </h1>
-    </div>
-  );
-}
+    if (!user) return null; // ⚠️ Evita renderizado hasta que haya datos
+
+    return (
+        <section className="p-6 bg-slate-100 shadow-md rounded-lg text-center">
+            <h1 className="text-4xl font-bold text-gray-800">Bienvenido, {user.nombre}!</h1>
+            <p className="text-gray-600">Empresa: {user.empresa}</p>
+        </section>
+    );
+};
+
+export default Bienvenida;
+
+
 

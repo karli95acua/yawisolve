@@ -1,47 +1,13 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import Bienvenida from '../components/Bienvenida.jsx';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import VideosRecomendados from '../components/VideosRecomendados.astro';
 import 'flowbite';
 import "../styles/global.css";
-import CardCarousel from '../components/CardCarrusel';
-
-if (typeof window !== "undefined") {
-  window.addEventListener("DOMContentLoaded", async function () {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      window.location.href = "/login";
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:4000/auth/validate", {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-
-      if (!response.ok) {
-        throw new Error("Token inválido o expirado");
-      }
-
-      const data = await response.json();
-      localStorage.setItem("nombre", data.user.nombre || "Usuario");
-      localStorage.setItem("empresa", data.user.empresa?.nombre || "Sin empresa");
-
-      // 🔹 Disparar un evento "storage" para que React se actualice correctamente
-      window.dispatchEvent(new Event("storage"));
-
-    } catch (error) {
-      console.error("❌ Error al validar el token:", error);
-      localStorage.removeItem("token");
-      window.location.href = "/login";
-    }
-  });
-}
+import VideosRecomendados from '../components/VideosRecomendados.astro';
+import Bienvenida from '../components/Bienvenida.jsx';
+import CardCarrusel from '../components/CardCarrusel.tsx';
 ---
 
 <!doctype html>
@@ -53,9 +19,11 @@ if (typeof window !== "undefined") {
   <Header />
   <main>
     <Bienvenida client:only="react" />
-    <CardCarousel client:load />
+    <CardCarrusel client:only="react" />
     <VideosRecomendados />
   </main>
   <Footer />
 </body>
 </html>
+
+
