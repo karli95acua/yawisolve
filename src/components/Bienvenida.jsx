@@ -8,7 +8,7 @@ const Bienvenida = () => {
 
         const token = localStorage.getItem("token");
         if (!token) {
-            window.location.href = "/login";
+            window.location.href = "/index"; // 🔹 Redirige a /index en lugar de /login
             return;
         }
 
@@ -26,7 +26,7 @@ const Bienvenida = () => {
         .catch(error => {
             console.error("❌ Error al validar el token:", error);
             localStorage.removeItem("token");
-            window.location.href = "/login";
+            window.location.href = "/index"; // 🔹 Asegura redirección a la página correcta
         });
     }, []);
 
@@ -41,6 +41,7 @@ const Bienvenida = () => {
 };
 
 export default Bienvenida;
+
 
 
 
