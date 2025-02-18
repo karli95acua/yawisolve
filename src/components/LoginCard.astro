@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  onLogin: (email: string, password: string) => void; // Callback al iniciar sesión
+  onLogin: (email: string, contraseña: string) => void; // Callback al iniciar sesión
   onForgotPassword: () => void; // Callback al hacer clic en "Recuperar contraseña"
 }
 ---
@@ -15,8 +15,8 @@ export interface Props {
     <label for="email">Correo electrónico</label>
     <input type="email" id="email" name="email" placeholder="Ingresa tu correo" required />
 
-    <label for="password">Contraseña</label>
-    <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña" required />
+    <label for="contraseña">Contraseña</label> <!-- 🔹 Cambiado a "contraseña" -->
+    <input type="password" id="contraseña" name="contraseña" placeholder="Ingresa tu contraseña" required />
 
     <button type="submit">Iniciar Sesión</button>
   </form>
@@ -33,30 +33,33 @@ export interface Props {
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
       const email = form.email.value;
-      const password = form.password.value;
+      const contraseña = form.contraseña.value;
 
       try {
         const response = await fetch("http://localhost:4000/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, contraseña }) // ✅ Backend espera "contraseña"
         });
 
         const data = await response.json();
+        console.log("📤 Respuesta del servidor:", data);
+
         if (!response.ok) throw new Error(data.message || "Error en el login");
 
-        // Guardamos los datos en localStorage
+        // ✅ Guardamos los datos en localStorage
         localStorage.setItem("token", data.token);
-        localStorage.setItem("nombre", data.user.nombre);
-        localStorage.setItem("empresa", data.user.empresa?.nombre || "Sin empresa");
+        localStorage.setItem("nombre", data.usuario.nombre);
+        localStorage.setItem("empresa", data.usuario.empresa?.nombre || "Sin empresa");
 
-        // Disparamos un evento para que el frontend se actualice
+        // ✅ Evento para actualizar el estado en la web
         window.dispatchEvent(new Event("storage"));
 
-        // Redirigir al usuario a la página principal
-        window.location.href = "/inicio";
+        // ✅ Redirigir al usuario si todo está correcto
+        window.location.href = "/Inicio";
       } catch (error) {
-        alert(error.message);
+        alert("Error en la autenticación, intenta nuevamente.");
+        console.error("❌ Error en la autenticación:", error);
       }
     });
 
@@ -66,6 +69,7 @@ export interface Props {
     });
   });
 </script>
+
 
 <style>
   .login-card {

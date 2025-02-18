@@ -4,33 +4,29 @@ const Bienvenida = () => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        if (typeof window === "undefined") return; // Previene acceso en SSR
+        if (typeof window === "undefined") return;
 
         const token = localStorage.getItem("token");
         if (!token) {
-            window.location.href = "/index"; // 🔹 Redirige a /index en lugar de /login
+            window.location.href = "/";
             return;
         }
 
-        fetch("http://localhost:4000/auth/validate", {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Token inválido o expirado");
-            return response.json();
-        })
-        .then(data => {
-            setUser({ nombre: data.user.nombre, empresa: data.user.empresa?.nombre });
-        })
-        .catch(error => {
-            console.error("❌ Error al validar el token:", error);
+        // 🛠️ Comprueba si los datos están en localStorage
+        const nombre = localStorage.getItem("nombre");
+        const empresa = localStorage.getItem("empresa");
+
+        if (!nombre || !empresa) {
+            console.error("❌ No se encontraron datos del usuario en localStorage.");
             localStorage.removeItem("token");
-            window.location.href = "/index"; // 🔹 Asegura redirección a la página correcta
-        });
+            window.location.href = "/";
+            return;
+        }
+
+        setUser({ nombre, empresa });
     }, []);
 
-    if (!user) return null; // ⚠️ Evita renderizado hasta que haya datos
+    if (!user) return null;
 
     return (
         <section className="p-6 bg-slate-100 shadow-md rounded-lg text-center">
@@ -41,7 +37,3 @@ const Bienvenida = () => {
 };
 
 export default Bienvenida;
-
-
-
-
