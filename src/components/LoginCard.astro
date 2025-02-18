@@ -47,10 +47,29 @@ export interface Props {
 
         if (!response.ok) throw new Error(data.message || "Error en el login");
 
-        // ✅ Guardamos los datos en localStorage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("nombre", data.usuario.nombre);
-        localStorage.setItem("empresa", data.usuario.empresa?.nombre || "Sin empresa");
+        // ✅ Guardamos los datos en localStorage solo si existen
+        if (data.token) {
+            localStorage.setItem("token", data.token);
+        } else {
+            console.error("❌ Error: No se recibió un token válido.");
+        }
+
+        if (data.usuario) {
+            localStorage.setItem("nombre", data.usuario.nombre);
+            localStorage.setItem("empresa", data.usuario.empresa?.nombre || "Sin empresa");
+
+            if (data.usuario.empresa?.empresa_hijo_id) {
+                const empresaIdLimpio = parseInt(data.usuario.empresa.empresa_hijo_id, 10);
+                localStorage.setItem("empresa_id", empresaIdLimpio.toString()); // ✅ Guardar como string limpio
+                console.log("✅ Empresa ID guardada correctamente:", empresaIdLimpio);
+            } 
+            else {
+                console.warn("⚠️ Advertencia: No se encontró empresa_id en la respuesta del backend.");
+            }
+
+        } else {
+            console.error("❌ Error: No se recibió información del usuario.");
+        }
 
         // ✅ Evento para actualizar el estado en la web
         window.dispatchEvent(new Event("storage"));
@@ -69,7 +88,6 @@ export interface Props {
     });
   });
 </script>
-
 
 <style>
   .login-card {

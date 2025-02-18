@@ -13,28 +13,72 @@ const BREAKPOINTS = {
     lg: 1024,
 };
 
+// 🔹 Mapeo de imágenes para cada módulo
+const imagenesModulos: Record<number, string> = {
+    1: "/calidad.jpeg",
+    2: "/fondo.jpeg",
+    3: "/labores.jpeg",
+    4: "/cosecha.jpeg",
+    5: "/sanidad.jpeg",
+    6: "/maq.jpeg",
+    11: "/seguridad.jpg",
+};
+
+type Modulo = {
+    modulo_id: number;
+    nombre: string;
+    empresasModulos: { activo: boolean }[];
+};
+
 const CardCarrusel = () => {
     const [ref, { width }] = useMeasure();
     const [offset, setOffset] = useState(0);
     const [isClient, setIsClient] = useState(false);
+    const [modulosFiltrados, setModulosFiltrados] = useState<Modulo[]>([]);
 
     useEffect(() => {
-        console.log("✅ CardCarrusel.tsx se está ejecutando en el cliente");
-        setIsClient(true);
-    }, []);
+        if (typeof window === "undefined") return;
 
-    console.log("🔹 items en CardCarrusel:", JSON.stringify(items, null, 2));
+        const empresa_id = localStorage.getItem("empresa_id");
+
+        if (!empresa_id) {
+            console.warn("⚠️ No se encontró empresa_id en localStorage.");
+            return;
+        }
+
+        console.log("🏢 Empresa ID obtenida:", empresa_id);
+
+        fetch(`http://localhost:4000/modulos/empresa/${empresa_id}`)
+            .then(response => {
+                if (!response.ok) throw new Error("❌ Error al obtener módulos.");
+                return response.json();
+            })
+            .then((data: Modulo[]) => {
+                console.log("📥 Módulos obtenidos antes de filtrar:", data);
+
+                // ✅ Filtrar solo módulos activos
+                const modulosActivos = data.filter((modulo) =>
+                    modulo.empresasModulos.some((em) => em.activo === true)
+                );
+
+                console.log("✅ Módulos filtrados activos:", modulosActivos);
+
+                setModulosFiltrados(modulosActivos);
+                setIsClient(true); // ✅ Ahora el frontend está listo para renderizar
+            })
+            .catch(error => console.error("🚨 Error cargando módulos:", error));
+    }, []);
 
     if (!isClient) {
         console.log("🚫 CardCarrusel aún no está en el cliente, esperando...");
-        return <div>Cargando componente...</div>;
+        return <p className="text-center text-gray-500">Cargando módulos...</p>;
     }
 
-    console.log("🎥 Renderizando CardCarrusel...");
+    console.log("🎥 Renderizando CardCarrusel con módulos:", modulosFiltrados);
 
     const CARD_BUFFER = width > BREAKPOINTS.lg ? 3 : width > BREAKPOINTS.sm ? 2 : 1;
     const CAN_SHIFT_LEFT = offset < 0;
-    const CAN_SHIFT_RIGHT = Math.abs(offset) < CARD_SIZE * (items.length - CARD_BUFFER);
+    const CAN_SHIFT_RIGHT = Math.abs(offset) < CARD_SIZE * (modulosFiltrados.length - CARD_BUFFER);
 
     const shiftLeft = () => CAN_SHIFT_LEFT && setOffset((prev) => prev + CARD_SIZE);
     const shiftRight = () => CAN_SHIFT_RIGHT && setOffset((prev) => prev - CARD_SIZE);
@@ -47,9 +91,13 @@ const CardCarrusel = () => {
                         Visita los Módulos disponibles en tu portal
                     </p>
                     <motion.div animate={{ x: offset }} className="flex">
-                        {items.map((item) => (
-                            <Card key={item.id} {...item} />
-                        ))}
+                        {modulosFiltrados.length > 0 ? (
+                            modulosFiltrados.map((modulo) => (
+                                <Card key={modulo.modulo_id} nombre={modulo.nombre} imagen={imagenesModulos[modulo.modulo_id] || "/fondo.jpeg"} />
+                            ))
+                        ) : (
+                            <p className="text-center text-gray-500 w-full">No hay módulos disponibles</p>
+                        )}
                     </motion.div>
                 </div>
 
@@ -70,49 +118,23 @@ const CardCarrusel = () => {
     );
 };
 
-const Card = ({ url, title, href }: ItemType) => (
-    <a href={href}>
-        <div
-            className="relative shrink-0 cursor-pointer rounded-2xl bg-white shadow-md transition-all hover:scale-[1.08] hover:shadow-xl"
-            style={{
-                width: CARD_WIDTH,
-                height: CARD_HEIGHT,
-                marginRight: MARGIN,
-                backgroundImage: `url(${url})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-            }}
-        >
-            <div className="absolute inset-0 z-20 rounded-2xl bg-gradient-to-b from-black/90 via-black/60 to-black/0 p-6 text-white transition-[backdrop-filter] hover:backdrop-blur-sm">
-                <p className="my-2 text-3xl font-bold text-slate-200">{title}</p>
-            </div>
+// 🔹 Se le pasa la imagen correcta al módulo
+const Card = ({ nombre, imagen }: { nombre: string; imagen: string }) => (
+    <div
+        className="relative shrink-0 cursor-pointer rounded-2xl bg-white shadow-md transition-all hover:scale-[1.08] hover:shadow-xl"
+        style={{
+            width: CARD_WIDTH,
+            height: CARD_HEIGHT,
+            marginRight: MARGIN,
+            backgroundImage: `url(${imagen})`, // ✅ Se usa la imagen correcta para cada módulo
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+        }}
+    >
+        <div className="absolute inset-0 z-20 rounded-2xl bg-gradient-to-b from-black/90 via-black/60 to-black/0 p-6 text-white transition-[backdrop-filter] hover:backdrop-blur-sm">
+            <p className="my-2 text-3xl font-bold text-slate-200">{nombre}</p>
         </div>
-    </a>
+    </div>
 );
 
 export default CardCarrusel;
-
-type ItemType = {
-    id: number;
-    url: string;
-    title: string;
-    href: string;
-};
-
-// 🔹 Items de la galería
-const items: ItemType[] = [
-    { id: 1, url: "/fondo.jpeg", title: "Configuración", href: "/configuracion" },
-    { id: 2, url: "/labores.jpeg", title: "Tareo Campo", href: "/tareo-campo" },
-    { id: 3, url: "/cosecha.jpeg", title: "Cosecha", href: "/cosecha" },
-    { id: 4, url: "/calidad.jpeg", title: "Calidad", href: "/calidad" },
-    { id: 5, url: "/sanidad.jpeg", title: "Sanidad", href: "/sanidad" },
-    { id: 6, url: "/maq.jpeg", title: "Maquinarias", href: "/maquinarias" },
-];
-
-
-
-
-
-
-
-
