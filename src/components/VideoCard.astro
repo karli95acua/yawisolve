@@ -1,4 +1,6 @@
 ---
+
+import ButtonVideo from './ButtonVideo.astro';
 interface Video {
     video_id: number;
     titulo: string;
@@ -55,10 +57,10 @@ const filteredVideos = videos.filter(video => video.plataforma.toLowerCase() ===
 
 <!-- Botones de plataforma -->
 <div class="flex justify-center gap-4 mb-8">
-  <button id="web-button" class={`px-6 py-2 rounded-lg font-medium transition-colors ${selectedPlatform === "WEB" ? "bg-slate-500 text-white" : "bg-slate-200 text-slate-800"}`}>
+  <button id="web-button" class={`px-6 py-2 rounded-lg font-medium transition-colors ${selectedPlatform === "WEB" ? "bg-slate-800 text-white" : "bg-slate-200 text-slate-800"}`}>
     WEB
   </button>
-  <button id="movil-button" class={`px-6 py-2 rounded-lg font-medium transition-colors ${selectedPlatform === "MOVIL" ? "bg-slate-500 text-white" : "bg-slate-200 text-slate-800"}`}>
+  <button id="movil-button" class={`px-6 py-2 rounded-lg font-medium transition-colors ${selectedPlatform === "MOVIL" ? "bg-slate-800 text-white" : "bg-slate-200 text-slate-800"}`}>
     MOVIL
   </button>
 </div>
@@ -69,7 +71,7 @@ const filteredVideos = videos.filter(video => video.plataforma.toLowerCase() ===
         filteredVideos.map((video) => (
             <div class="video-card">
                 <div class="video-container">
-                    <video controls>
+                    <video>
                         <source src={video.url_s3} type="video/mp4" />
                         Tu navegador no soporta el video.
                     </video>
@@ -81,6 +83,8 @@ const filteredVideos = videos.filter(video => video.plataforma.toLowerCase() ===
                         <p class="text-sm text-slate-500">
                             <span class="font-medium">{video.modulo}</span> • <span>{video.plataforma}</span>
                         </p>
+                        <div ><ButtonVideo videoId={video.video_id.toString()} /></div>
+                        
                     </div>
                 </div>
             </div>
