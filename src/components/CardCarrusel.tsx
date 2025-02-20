@@ -77,7 +77,7 @@ const CardCarrusel = () => {
     const shiftRight = () => CAN_SHIFT_RIGHT && setOffset((prev) => prev - CARD_SIZE);
 
     return (
-        <section className="bg-slate-100" ref={ref}>
+        <section className=" w-full bg-slate-100" ref={ref}>
             <div className="relative overflow-hidden p-8">
                 <div className="mx-auto max-w-8xl">
                     <p className="mb-6 text-4xl font-semibold text-center">
