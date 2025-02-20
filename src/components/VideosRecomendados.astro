@@ -1,28 +1,36 @@
 ---
-import { getVideos } from '../services/api';
-
 interface Video {
-    id: number;
+    video_id: number;
     titulo: string;
     url_s3: string;
     modulo_id: number;
 }
 
-async function getRandomVideos(count: number): Promise<Video[]> {
-    const videos = await getVideos();
-    const shuffled = [...videos].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
-}
+// 📌 Obtener videos aleatorios desde la API
+const fetchRandomVideos = async (limit: number) => {
+    const apiUrl = `http://localhost:4000/videos/random?limit=${limit}`;
 
-const recommendedVideos: Video[] = await getRandomVideos(6);
+    try {
+        console.log(`🔍 Consultando API: ${apiUrl}`);
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        return Array.isArray(data) ? data : [];
+    } catch (error) {
+        console.error("❌ Error al obtener videos aleatorios:", error);
+        return [];
+    }
+};
+
+// 📌 Obtener 6 videos aleatorios
+const randomVideos: Video[] = await fetchRandomVideos(6);
 ---
 
 <section class="bg-slate-100 py-8">
-    <h2 class="text-4xl font-semibold text-center text-slate-800 mb-12">Recomendación de Tutoriales</h2>
+    <h2 class="text-4xl font-semibold text-center text-slate-800 mb-12">Videos Recomendados</h2>
     <div class="mx-auto max-w-8xl px-20">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {recommendedVideos.map((video) => (
-                <a href={`/videos/${video.id}`} class="bg-white rounded-2xl shadow-md overflow-hidden transition-transform hover:scale-[1.05] hover:shadow-xl">
+            {randomVideos.map((video) => (
+                <a href={`/videos/${video.video_id}`} class="bg-white rounded-2xl shadow-md overflow-hidden transition-transform hover:scale-[1.05] hover:shadow-xl">
                     <div class="w-full h-50 overflow-hidden">
                         <video controls class="w-full h-full object-cover">
                             <source src={video.url_s3} type="video/mp4" />
@@ -36,5 +44,3 @@ const recommendedVideos: Video[] = await getRandomVideos(6);
         </div>
     </div>
 </section>
-
-
