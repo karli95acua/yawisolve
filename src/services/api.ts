@@ -39,13 +39,4 @@ export const getVideos = async () => {
     }
 };
 
-// Obtener videos por módulo
-export const getVideosByModule = async (moduloId: number) => {
-    try {
-        const response = await api.get(`/videos/modulo/${moduloId}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error al obtener videos por módulo:', error);
-        return [];
-    }
-};
+

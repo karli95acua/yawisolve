@@ -14,7 +14,7 @@ interface Video {
 // Obtiene la plataforma desde la URL
 const url = new URL(Astro.request.url);
 const selectedPlatform = url.searchParams.get("platform") || "WEB";
-const category = "Cosecha"; // ⚠️ Cambiar por el módulo correspondiente
+const category = "Seguridad"; // ⚠️ Cambiar por el módulo correspondiente
 
 const fetchVideos = async (platform: string) => {
     const apiUrl = `http://localhost:4000/videos/list?platform=${platform}&category=${category}`;

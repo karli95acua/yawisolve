@@ -1,89 +1,78 @@
 ---
 import Header from '../components/Header.astro';
 import VideoCard from '../components/VideoCard.astro';
-import videosData from '../data/videos.json';
 
 interface Video {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  platform: string;
-  duration: string;
-  url: string;
+  video_id: number;
+  titulo: string;
+  url_s3: string;
+  empresa: string;
+  modulo: string;
+  plataforma: string;
 }
+
+// Obtiene la plataforma desde la URL
+const url = new URL(Astro.request.url);
+const selectedPlatform = url.searchParams.get("platform") || "WEB";
+const category = "Calidad"; // ⚠️ Cambiar por el módulo correspondiente
+
+const fetchVideos = async (platform: string) => {
+    const apiUrl = `http://localhost:4000/videos/list?platform=${platform}&category=${category}`;
+
+    try {
+        console.log(`🔍 Consultando API: ${apiUrl}`);
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        console.log("✅ JSON de la API:", data);
+        return Array.isArray(data) ? data : [];
+    } catch (error) {
+        console.error("❌ Error al obtener videos:", error);
+        return [];
+    }
+};
+
+const videos = await fetchVideos(selectedPlatform);
+console.log("📌 Enviando videos a VideoCard:", videos);
 ---
 
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Calidad</title>
+    <title>{category} - Tutoriales</title>
   </head>
   <body class="bg-slate-100">
     <Header />
-    <main class="py-8">
-      <h1 class="text-4xl font-semibold text-center text-gray-800 mb-8">Tutoriales de Calidad</h1>
 
-      <!-- Botones de filtro -->
-      <div class="flex justify-center gap-4 mb-8">
-        <button
-          id="web-button"
-          class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-medium transition-colors hover:bg-slate-500 hover:scale-[1.01] active:bg-slate-600"
-          data-platform="WEB"
-        >
-          WEB
-        </button>
-        <button
-          id="movil-button"
-          class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-medium transition-colors hover:bg-slate-500 hover:scale-[1.01] active:bg-slate-600"
-          data-platform="MOVIL"
-        >
-          MOVIL
-        </button>
-      </div>
+    <div class="flex">
+      <main class="py-8 flex-1">
+        <h1 class="text-4xl font-semibold text-center text-gray-800 mb-8">
+          Tutoriales de {category}
+        </h1>
 
-      <!-- Contenedor de videos -->
-      <div id="video-container" class="mx-auto max-w-4xl px-4">
-        <!-- Videos WEB -->
-        <div id="web-videos" class="space-y-6">
-          <VideoCard videos={videosData.videos.filter(
-            (video) => video.platform === "WEB" && video.category === "Calidad"
-          )} />
+        <!-- Contenedor de videos -->
+        <div class="mx-auto max-w-4xl px-4">
+          <VideoCard videos={videos} selectedPlatform={selectedPlatform} />
         </div>
+      </main>
+    </div>
 
-        <!-- Videos MOVIL -->
-        <div id="movil-videos" class="space-y-6 hidden">
-          <VideoCard videos={videosData.videos.filter(
-            (video) => video.platform === "MOVIL" && video.category === "Calidad"
-          )} />
-        </div>
-      </div>
-    </main>
-
-    <script is:inline>
+    <script>
       document.addEventListener("DOMContentLoaded", () => {
         const webButton = document.getElementById("web-button");
         const movilButton = document.getElementById("movil-button");
-        const webVideos = document.getElementById("web-videos");
-        const movilVideos = document.getElementById("movil-videos");
 
-        const showVideos = (platform) => {
-          if (platform === "WEB") {
-            webVideos.classList.remove("hidden");
-            movilVideos.classList.add("hidden");
-            webButton.classList.add("bg-slate-400");
-            movilButton.classList.remove("bg-slate-400");
-          } else if (platform === "MOVIL") {
-            movilVideos.classList.remove("hidden");
-            webVideos.classList.add("hidden");
-            movilButton.classList.add("bg-slate-400");
-            webButton.classList.remove("bg-slate-400");
-          }
-        };
+        if (!webButton || !movilButton) {
+          console.error("❌ No se encontraron los botones.");
+          return;
+        }
 
-        // Manejar clics en botones
-        webButton.addEventListener("click", () => showVideos("WEB"));
-        movilButton.addEventListener("click", () => showVideos("MOVIL"));
+        webButton.addEventListener("click", () => {
+          window.location.search = `?platform=WEB`;
+        });
+
+        movilButton.addEventListener("click", () => {
+          window.location.search = `?platform=MOVIL`;
+        });
       });
     </script>
   </body>
